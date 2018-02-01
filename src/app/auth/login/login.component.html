@@ -1,1 +1,48 @@
-<h1>Login</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="text-center text-white mb-4">Bootstrap 4 Login Form</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <span class="anchor" id="formLogin"></span>
+
+                    <!-- Form Card Login -->
+                    <div class="card rounded-0">
+                        <div class="card-header">
+                            <h3 class="mb-0">Login</h3>
+                        </div>
+                        <div class="card-body">
+                            <form class="form" role="form" autocomplete="off" id="formLogin" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+                                <div class="form-group">
+                                    <label for="username">Email or Mobile Number</label>
+                                    <input 
+                                        type="text" id="username" 
+                                        formControlName="username" 
+                                        class="form-control" placeholder="Email or Mobile Number">
+                                        <span 
+                                            *ngIf=" !loginForm.get('username').valid && loginForm.get('username').touched "
+                                            clas="help-block">Please enter a valid username!</span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">password</label>
+                                    <input 
+                                        type="text" id="password" 
+                                        formControlName="password" class="form-control"
+                                        placeholder="password">
+                                </div>
+                                <div>
+                                        <label class="custom-control custom-checkbox">
+                                          <input type="checkbox" class="custom-control-input" formControlName="rememberMe" id="rememberMe">
+                                          <span class="custom-control-indicator"></span>
+                                          <span class="custom-control-description small">Remember me on this computer</span>
+                                        </label>
+                                </div>
+                                <button type="button" class="btn btn-success float-right" disabled="!loginForm.valid" type="submit">Login</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
