@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
-
+import { SharedModule } from '../shared/shared.module';
 @NgModule({
     declarations: [
         HeaderComponent,
@@ -17,7 +17,8 @@ import { FooterComponent } from './footer/footer.component';
        FooterComponent
     ],
     imports: [
-        RouterModule
+        RouterModule,
+        SharedModule
     ]
 })
 export class CoreModule {
