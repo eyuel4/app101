@@ -1,3 +1,5 @@
+
+
 export class Photo {
     public photoId : number;
     public photo_name : string;

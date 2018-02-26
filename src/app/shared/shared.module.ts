@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 import { ViewCardComponent } from './view-card/view-card.component';
 
@@ -8,10 +9,12 @@ import { ViewCardComponent } from './view-card/view-card.component';
         ViewCardComponent
     ],
     exports: [
-        ViewCardComponent
+        ViewCardComponent,
+        CommonModule
     ],
     imports: [
-        RouterModule
+        RouterModule,
+        CommonModule
     ]
 })
 export class SharedModule {

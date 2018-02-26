@@ -1,13 +1,17 @@
-<div class="container">
+<!-- <div class="container">
     <div class="row">
         <h1>Home</h1>
         <div class="card-deck">
-            <div *ngFor="let media of movies">
-                <app-viewcard></app-viewcard>
+            <div>
+                <app-viewcard *ngFor="let media of movies"></app-viewcard>
             </div>
         </div>
     </div>
-</div>
+</div> -->
+
+<app-viewcard [movie]="movie"
+             *ngFor="let movie of movies" ></app-viewcard>
+
 
 <!-- <app-viewcard></app-viewcard> -->
 <div class="container">
@@ -17,7 +21,7 @@
             <div class="card">
                 <img class="card-img-top" src="https://static.boredpanda.com/blog/wp-content/uploads/2016/01/16-year-old-artist-dimitra-milan-1.jpg" alt="Card image cap">
                 <div class="card-block">
-                    <h4 class="card-title">Card Title</h4>
+                    <h4 class="card-title">{{ gettitle() }}</h4>
                     <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                 </div>
                 <div class="card-footer">
