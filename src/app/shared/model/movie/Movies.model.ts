@@ -19,12 +19,13 @@ export class Movies {
     public movieGeners : Array<MovieGenres>;
     public movieComments : Array<MovieComment>;
     public movieArtists : Array<MovieArtist>;
-    public movieTags : Array<MovieTags>
+    public movieTags : Array<MovieTags>;
 
-    constructor(movieId : string, title : string , description : string, photo : Photo) {
-        this.movieId = this.movieId;
-        this.title = this.title;
-        this.description = this.description;
-        this.photo = this.photo;
+    constructor(movieId : number, title : string , description : string, photo : Photo) {
+        this.movieId = movieId;
+        this.title = title;
+        this.description = description;
+        this.photo = photo;
     }
+    
 }

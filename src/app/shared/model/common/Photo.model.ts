@@ -6,8 +6,8 @@ export class Photo {
     public url : string;
 
     constructor(photoId : number , photo_name : string, url : string) {
-        this.photoId = this.photoId,
-        this.photo_name = this.photo_name,
-        this.url = this.url
+        this.photoId = photoId,
+        this.photo_name = photo_name,
+        this.url = url
     }
 }
