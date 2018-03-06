@@ -19,10 +19,4 @@ export class ViewCardComponent implements OnInit {
         console.log(this.movie.description);
        // console.log(this.user.email);
     }
-
-    // getItemImage() : string {
-    //     console.log(this.movie.photo.url);
-    //     console.log(this.movie.photo.photo_name);
-    //    return  this.movie.photo.url;
-    // }
 }
