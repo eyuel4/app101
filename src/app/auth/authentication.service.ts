@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs';
@@ -14,7 +14,10 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string): Observable<boolean> {
-        return this.httpClient.post(this.authUrl, JSON.stringify({username: username, password: password}), {headers: this.headers})
+        const headers = new HttpHeaders({'Content-Type' : 'application-json; charset=utf-8'});
+        //headers = headers.set('Content-Type', 'application/json; charset=utf-8');
+
+        return this.httpClient.post(this.authUrl, JSON.stringify({username: username, password: password}), {headers: headers})
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let token = response.json() && response.json().token;
@@ -30,14 +33,15 @@ export class AuthenticationService {
                 }
             }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
     }
-
-    getToken() : String {
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        var token = currentUser && currentUser.token;
-        return token ? token : "";
+ 
+    getToken(): String {
+      var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      var token = currentUser && currentUser.token;
+      return token ? token : "";
     }
-
+ 
     logout(): void {
+        // clear token remove user from local storage to log user out
         localStorage.removeItem('currentUser');
     }
 }
