@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { ViewCardComponent } from './shared/view-card/view-card.component';
 import { SharedModule } from './shared/shared.module';
 import { AuthenticationService } from '../app/auth/authentication.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { AuthenticationService } from '../app/auth/authentication.service';
     CoreModule,
     RouterModule,
     AppRoutingModule,
+    HttpClientModule,
     SharedModule
   ],
   providers: [ AuthenticationService ],

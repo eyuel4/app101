@@ -31,13 +31,15 @@ export class LoginComponent implements OnInit {
 
     onSubmit() {
          let user : User = this.loginForm.value;
+         this.model = user;
         console.log(this.loginForm);
-
+        console.log(user.username + "" + user.password);
+        this.login();
     }
 
     login() {
         this.loading = true;
-        this.authenticationService.login(this.model.email , this.model.password)
+        this.authenticationService.login(this.model.username , this.model.password)
             .subscribe(result => {
                 if (result === true) {
                     // login succesful

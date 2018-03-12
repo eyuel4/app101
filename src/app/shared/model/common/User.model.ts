@@ -2,6 +2,6 @@ import { MovieComment } from '../movie/MovieComment.model';
 
 export class User {
     public idUser : number;
-    public email : string;
+    public username : string;
     public password : string;
 }
