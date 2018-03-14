@@ -4,7 +4,8 @@ export const AppConfig: IAppConfig = {
     routes: {
         home: 'home',
         signup: 'signup',
-        login: 'login'
+        login: 'login',
+        movies: 'movies'
     },
     endpoints: {
         

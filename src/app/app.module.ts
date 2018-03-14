@@ -12,6 +12,8 @@ import { SharedModule } from './shared/shared.module';
 import { AuthenticationService } from '../app/auth/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
 
+import { MovieModule } from './movies/movie.module';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -22,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     RouterModule,
     AppRoutingModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
+    MovieModule
   ],
   providers: [ AuthenticationService ],
   bootstrap: [ AppComponent ]
