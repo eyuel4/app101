@@ -1,13 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Movies } from "../../shared/model/movie/Movies.model";
 import { Photo } from "../../shared/model/common/Photo.model";
+import { MovieService } from "../../shared/service/movie.service";
 
 @Component({
     selector: 'app-movies-list',
     templateUrl: './movies-list.component.html',
     styleUrls: ['./movies-list.component.scss']
 })
-export class MoviesListComponent {
+export class MoviesListComponent implements OnInit {
     movies : Movies[] = [
         new Movies(
             100,
@@ -52,4 +53,17 @@ export class MoviesListComponent {
             new Photo(12, 'HarryPotter', 'https://static.boredpanda.com/blog/wp-content/uploads/2016/01/16-year-old-artist-dimitra-milan-1.jpg')
         )
     ]
+
+    constructor(private movieService: MovieService) {}
+
+    ngOnInit() {
+        console.log(this.movies);
+        this.movieService.getMovies()
+            .subscribe(
+                (movies: Movies[]) => {
+                    console.log(this.movies);
+                    this.movies = movies;
+                }
+            )
+    }
 }
