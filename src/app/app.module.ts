@@ -11,6 +11,7 @@ import { ViewCardComponent } from './shared/view-card/view-card.component';
 import { SharedModule } from './shared/shared.module';
 import { AuthenticationService } from '../app/auth/authentication.service';
 import { HttpClientModule } from '@angular/common/http';
+import { MoviesService } from './shared/service/movies.service';
 
 import { MovieModule } from './movies/movie.module';
 
@@ -27,7 +28,7 @@ import { MovieModule } from './movies/movie.module';
     SharedModule,
     MovieModule
   ],
-  providers: [ AuthenticationService ],
+  providers: [ AuthenticationService, MoviesService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

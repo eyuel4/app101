@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Movies } from '../../shared/model/movie/Movies.model';
+import { MoviesService } from '../../shared/service/movies.service';
 import { Photo } from '../../shared/model/common/Photo.model';
 import { User } from '../../shared/model/common/User.model';
 
@@ -9,55 +10,12 @@ import { User } from '../../shared/model/common/User.model';
     templateUrl:'./home.component.html',
     styleUrls:['./home.component.scss']
 })
-export class HomeComponent {
-    movies : Movies[] = [
-        new Movies(
-            100,
-            'Harry Potter',
-            'Good movie',
-            new Photo(12, 'HarryPotter', 'https://static.boredpanda.com/blog/wp-content/uploads/2016/01/16-year-old-artist-dimitra-milan-1.jpg')
-        ),
-        new Movies(
-            100,
-            'Harry Potter',
-            'Good movie',
-            new Photo(12, 'HarryPotter', 'https://static.boredpanda.com/blog/wp-content/uploads/2016/01/16-year-old-artist-dimitra-milan-1.jpg')
-        ),
-        new Movies(
-            100,
-            'Harry Potter',
-            'Good movie',
-            new Photo(12, 'HarryPotter', 'https://static.boredpanda.com/blog/wp-content/uploads/2016/01/16-year-old-artist-dimitra-milan-1.jpg')
-        ),
-        new Movies(
-            100,
-            'Harry Potter',
-            'Good movie',
-            new Photo(12, 'HarryPotter', 'https://static.boredpanda.com/blog/wp-content/uploads/2016/01/16-year-old-artist-dimitra-milan-1.jpg')
-        ),
-        new Movies(
-            100,
-            'Harry Potter',
-            'Good movie',
-            new Photo(12, 'HarryPotter', 'https://static.boredpanda.com/blog/wp-content/uploads/2016/01/16-year-old-artist-dimitra-milan-1.jpg')
-        ),
-        new Movies(
-            100,
-            'Harry Potter',
-            'Good movie',
-            new Photo(12, 'HarryPotter', 'https://static.boredpanda.com/blog/wp-content/uploads/2016/01/16-year-old-artist-dimitra-milan-1.jpg')
-        ),
-        new Movies(
-            100,
-            'Harry Potter',
-            'Good movie',
-            new Photo(12, 'HarryPotter', 'https://static.boredpanda.com/blog/wp-content/uploads/2016/01/16-year-old-artist-dimitra-milan-1.jpg')
-        )
-    ]
+export class HomeComponent implements OnInit {
+    movies : Movies[];
     //xs : Movies;
     //user : User;
 
-    constructor() {
+    constructor(private moviesService : MoviesService) {
        // this.movies = new Array();
        // this.xs  = new Movies(100,'Harry Potter','Good movie',new Photo(12, 'HarryPotter', 'https://static.boredpanda.com/blog/wp-content/uploads/2016/01/16-year-old-artist-dimitra-milan-1.jpg'));
        // this.xs = new Movies();
@@ -75,4 +33,8 @@ export class HomeComponent {
     //     console.log(this.movies[0].title);
     //    return this.movies[0].title;
     // }
+
+    ngOnInit() {
+        this.movies = this.moviesService.getMovies();
+    }
 }
