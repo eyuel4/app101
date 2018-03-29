@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup , FormControl, Validators} from '@angular/forms'
+import { FormGroup , FormControl, Validators} from '@angular/forms';
+
+import { AuthenticationService } from '../authentication.service';
+import { User } from '../../shared/model/common/User.model';
 
 
 @Component ({
@@ -11,26 +14,32 @@ export class SignupComponent implements OnInit {
 
     signupForm: FormGroup
 
+    constructor(private authService : AuthenticationService) {}
+
     ngOnInit() {
         this.signupForm = new FormGroup({
-            'userName' : new FormControl(null, [Validators.required, this.userNameValidation.bind(this)]),
-            'firstName' : new FormControl(null),
-            'lastName' : new FormControl(null),
+            'username' : new FormControl(null, [Validators.required, this.userNameValidation.bind(this)]),
+            'firstname' : new FormControl(null),
+            'lastname' : new FormControl(null),
             'password' : new FormControl(null),
-            'signup' : new FormControl(null),
             'birthdate' : new FormControl(null)
         });
     }
 
     onSubmit() : void {
         console.log(this.signupForm);
+        let user = new User();
+        user = this.signupForm.value;
+        console.log(user);
+        let result : any = this.authService.signUp(user);
+        console.log(result + "result")
     }
 
     userNameValidation(control: FormControl) : {[s: string] : boolean} {
-        var userName : string = control.value;
-        if(userName !== null) {
-            if(!(this.validatePhone(userName) || this.validateEmail(userName))) {
-                return { 'userNameIsValid' : false}
+        var username : string = control.value;
+        if(username !== null) {
+            if(!(this.validatePhone(username) || this.validateEmail(username))) {
+                return { 'usernameIsValid' : false}
             }
             return null;
         }
