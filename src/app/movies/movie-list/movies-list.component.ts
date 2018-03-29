@@ -58,13 +58,13 @@ export class MoviesListComponent implements OnInit {
 
     ngOnInit() {
         console.log(this.movies);
-        this.movieService.getMovies()
-            .subscribe(
-                (movies: Movies[]) => {
-                    console.log("hello world");
-                    console.log(movies);
-                    this.movies = movies;
-                }
-            )
+        // this.movieService.getMovies()
+        //     .subscribe(
+        //         (movies: Movies[]) => {
+        //             console.log("hello world");
+        //             console.log(movies);
+        //             this.movies = movies;
+        //         }
+        //     )
     }
 }

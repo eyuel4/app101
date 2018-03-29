@@ -8,10 +8,12 @@ import { Movies } from "../../../shared/model/movie/Movies.model";
 })
 export class MovieItemComponent implements OnInit {
   @Input('movieItem') movie: Movies;
+  @Input('index') id : any;
   
   constructor() { }
 
   ngOnInit() {
+    console.log(this.id);
   }
 
 }
