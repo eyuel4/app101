@@ -4,7 +4,7 @@ import { Movies } from "../model/movie/Movies.model";
 
 @Injectable()
 export class MovieService  {
-    movieUrl = 'http://localhost:8080/ibexapi/movies';
+    movieUrl = 'http://localhost:8082/ibexapp/ibex/api/v1/movies';
 
     constructor(private http: HttpClient) { }
 
