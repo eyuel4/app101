@@ -1,6 +1,7 @@
 <a
   style="cursor: pointer;"
   [routerLink]="'details'"
+  (click)="OnMovieItemSelected()"
   class="list-group-item clearfix">
 
   <img class="card-img-top" [src]="movie.photo.url" [alt]="movie.photo.photo_name">

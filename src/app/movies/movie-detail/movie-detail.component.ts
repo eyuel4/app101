@@ -1,10 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-movie-detail',
     templateUrl: './movie-detail.component.html',
     styleUrls:['./movie-detail.component.scss']
 })
-export class MovieDetailComponent {
+export class MovieDetailComponent implements OnInit {
 
+    construcotr() {
+
+    }
+
+    ngOnInit() {
+        console.log("Movie Detail Loaded");
+    }
 }

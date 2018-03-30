@@ -1,4 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+
 import { Movies } from "../../../shared/model/movie/Movies.model";
 
 @Component({
@@ -10,10 +12,15 @@ export class MovieItemComponent implements OnInit {
   @Input('movieItem') movie: Movies;
   @Input('index') id : any;
   
-  constructor() { }
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     console.log(this.id);
+  }
+
+  OnMovieItemSelected() {
+    this.router.navigate(['details'], {relativeTo: this.route});
+    console.log("Movie Item Selected");
   }
 
 }

@@ -14,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MoviesService } from './shared/service/movies.service';
 
 import { MovieModule } from './movies/movie.module';
+import { MovieRoutingModule } from "./movies/movie-routing.module";
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { MovieModule } from './movies/movie.module';
     CoreModule,
     RouterModule,
     AppRoutingModule,
+    MovieRoutingModule,
     HttpClientModule,
     SharedModule,
     MovieModule
