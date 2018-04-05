@@ -8,8 +8,8 @@ import { User } from '../shared/model/common/User.model';
 
 @Injectable()
 export class AuthenticationService {
-    private authUrl = 'http://localhost:8082/ibex/api/v1/user/authenticate';
-    private signUpUrl = 'http://localhost:8082/ibex/api/v1/user/signup';
+    private authUrl = 'http://localhost:8082/ibexapp/ibex/api/v1/user/authenticate';
+    private signUpUrl = 'http://localhost:8082/ibexapp/ibex/api/v1/user/signup';
     private headers = new Headers({'Content-Type' : 'application-json'});
 
     constructor(private httpClient : HttpClient,
@@ -41,20 +41,22 @@ export class AuthenticationService {
 
     signUp(user : User): Observable<string> | Promise<string> | string {
         const headers = new HttpHeaders({'Content-Type' : 'application-json'});
+        if(user == null) { console.log(user)}
         if(user != null) {
-            console.log(user + "form data");
+            console.log(user + "Hello World");
             return this.httpClient.post(this.signUpUrl, JSON.stringify({user : User}), {headers: headers})
             .map((response: Response) => {
                 let savedUser = response.json();
-                console.log(savedUser);
+                console.log(savedUser + "User Saved");
                 if(savedUser != null) {
                     this.router.navigate(['/home']);
                     return savedUser;
                 }
                 else {
                     return null;
-                }
-            }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+                } 
+            }).catch((error:any) => 
+            Observable.throw(error.json().error || 'Server error'));
         }
     }
  

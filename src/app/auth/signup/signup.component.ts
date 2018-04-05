@@ -1,4 +1,6 @@
+import {Observable} from 'rxjs/Observable';
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs/Subscription';
 import { FormGroup , FormControl, Validators} from '@angular/forms';
 
 import { AuthenticationService } from '../authentication.service';
@@ -21,8 +23,8 @@ export class SignupComponent implements OnInit {
             'username' : new FormControl(null, [Validators.required, this.userNameValidation.bind(this)]),
             'firstname' : new FormControl(null),
             'lastname' : new FormControl(null),
-            'password' : new FormControl(null),
-            'birthdate' : new FormControl(null)
+            'password' : new FormControl(null)
+           // 'birthdate' : new FormControl(null)
         });
     }
 
@@ -31,7 +33,8 @@ export class SignupComponent implements OnInit {
         let user = new User();
         user = this.signupForm.value;
         console.log(user);
-        let result : any = this.authService.signUp(user);
+        let result = this.authService.signUp(user);
+        //.subscribe(result => { });
         console.log(result + "result")
     }
 

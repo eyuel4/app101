@@ -1,3 +1,4 @@
+import {ActivatedRoute, Router} from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,12 +7,12 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./movies.component.scss']
 })
 export class MoviesComponent implements OnInit {
-    constructor() {
+    constructor(private router : Router, private route : ActivatedRoute) {
 
     }
 
     ngOnInit() {
-
+        this.router.navigate(['./list'],{relativeTo: this.route})
     }
 
 }
