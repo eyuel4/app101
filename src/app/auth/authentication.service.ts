@@ -10,7 +10,7 @@ import { User } from '../shared/model/common/User.model';
 export class AuthenticationService {
     private authUrl = 'http://localhost:8082/ibexapp/ibex/api/v1/user/authenticate';
     private signUpUrl = 'http://localhost:8082/ibexapp/ibex/api/v1/user/signup';
-    private headers = new Headers({'Content-Type' : 'application-json'});
+    private headers = new Headers({'Content-Type' : 'application/json'});
 
     constructor(private httpClient : HttpClient,
                 private router : Router,
@@ -19,7 +19,7 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string): Observable<boolean> {
-        const headers = new HttpHeaders({'Content-Type' : 'application-json; charset=utf-8'});
+        const headers = new HttpHeaders({'Content-Type' : 'application/json; charset=utf-8'});
         //headers = headers.set('Content-Type', 'application/json; charset=utf-8');
 
         return this.httpClient.post(this.authUrl, JSON.stringify({username: username, password: password}), {headers: headers})
@@ -39,12 +39,15 @@ export class AuthenticationService {
             }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
     }
 
-    signUp(user : User): Observable<string> | Promise<string> | string {
-        const headers = new HttpHeaders({'Content-Type' : 'application-json'});
+    signUp(user : User):any {
+        const headers = new HttpHeaders({'Content-Type' : 'application/json'});
         if(user == null) { console.log(user)}
         if(user != null) {
-            console.log(user + "Hello World");
-            return this.httpClient.post(this.signUpUrl, JSON.stringify({user : User}), {headers: headers})
+            console.log("To be sent to server");
+            console.log(user);
+            console.log("Json Value");
+            console.log(JSON.stringify({user}));
+            return this.httpClient.post(this.signUpUrl, user, {headers: headers})
             .map((response: Response) => {
                 let savedUser = response.json();
                 console.log(savedUser + "User Saved");
@@ -56,7 +59,7 @@ export class AuthenticationService {
                     return null;
                 } 
             }).catch((error:any) => 
-            Observable.throw(error.json().error || 'Server error'));
+            Observable.throw(error || 'Server error'));
         }
     }
  

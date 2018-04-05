@@ -6,5 +6,7 @@ export class User {
     public firstName : string;
     public lastName : string;
     public password : string;
-    public birthday : Date;
+    public insDate : Date;
+    public lastUpdated : Date;
+    //public birthday : Date;
 }

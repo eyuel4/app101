@@ -18,9 +18,4 @@ export class MovieItemComponent implements OnInit {
     console.log(this.id);
   }
 
-  OnMovieItemSelected() {
-    this.router.navigate(['details'], {relativeTo: this.route});
-    console.log("Movie Item Selected");
-  }
-
 }
