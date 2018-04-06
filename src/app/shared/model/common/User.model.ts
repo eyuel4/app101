@@ -8,5 +8,5 @@ export class User {
     public password : string;
     public insDate : Date;
     public lastUpdated : Date;
-    //public birthday : Date;
+    public birthday : Date;
 }

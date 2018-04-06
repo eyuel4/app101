@@ -12,9 +12,7 @@ export class AuthenticationService {
     private signUpUrl = 'http://localhost:8082/ibexapp/ibex/api/v1/user/signup';
     private headers = new Headers({'Content-Type' : 'application/json'});
 
-    constructor(private httpClient : HttpClient,
-                private router : Router,
-                private route : ActivatedRoute) {
+    constructor(private httpClient : HttpClient) {
 
     }
 
@@ -47,12 +45,12 @@ export class AuthenticationService {
             console.log(user);
             console.log("Json Value");
             console.log(JSON.stringify({user}));
-            return this.httpClient.post(this.signUpUrl, user, {headers: headers})
-            .map((response: Response) => {
-                let savedUser = response.json();
+            return this.httpClient.post(this.signUpUrl, user, {headers: headers, responseType :'text'})
+            .map((response: string) => {
+                let savedUser = response;//.json();
                 console.log(savedUser + "User Saved");
                 if(savedUser != null) {
-                    this.router.navigate(['/home']);
+                   // this.router.navigate(['/home']);
                     return savedUser;
                 }
                 else {

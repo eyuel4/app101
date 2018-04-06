@@ -24,7 +24,6 @@ export class SignupComponent implements OnInit {
             'firstName' : new FormControl(null),
             'lastName' : new FormControl(null),
             'password' : new FormControl(null)
-           // 'birthdate' : new FormControl(null)
         });
     }
 
@@ -32,14 +31,13 @@ export class SignupComponent implements OnInit {
         console.log(this.signupForm);
         let user = new User();
         user = this.signupForm.value;
-        user.idUser = 1000;
         console.log(user);
         let result = this.authService.signUp(user).subscribe(
             (data) => {
                 console.log("User Regisetred");
             },
             (error : Error) => {
-                console.log("Error Occured" + error);
+                console.log(error);
             });
         //.subscribe(result => { });
         console.log(result + "result")
