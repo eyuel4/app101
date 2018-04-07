@@ -16,14 +16,17 @@ export class AuthenticationService {
 
     }
 
-    login(username: string, password: string): Observable<boolean> {
+    login(user : User): Observable<boolean> {
         const headers = new HttpHeaders({'Content-Type' : 'application/json; charset=utf-8'});
+        const username = user.username;
+        const password = user.password;
+        console.log(username + "+"+password);
         //headers = headers.set('Content-Type', 'application/json; charset=utf-8');
 
-        return this.httpClient.post(this.authUrl, JSON.stringify({username: username, password: password}), {headers: headers})
+        return this.httpClient.post(this.authUrl, user, {headers: headers})
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
-                let token = response.json() && response.json();
+                let token = response;
                 if (token) {
                     // store username and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
@@ -34,7 +37,7 @@ export class AuthenticationService {
                     // return false to indicate failed login
                     return false;
                 }
-            }).catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+            }).catch((error:any) => Observable.throw(error || 'Server error'));
     }
 
     signUp(user : User):any {

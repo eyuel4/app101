@@ -38,9 +38,11 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
+        console.log("About to login");
         this.loading = true;
-        this.authenticationService.login(this.model.username , this.model.password)
-            .subscribe(result => {
+        this.authenticationService.login(this.model)
+            .subscribe(
+                (result : boolean) => {
                 if (result === true) {
                     // login succesful
                     console.log("LoggedIn succesful");
@@ -48,9 +50,10 @@ export class LoginComponent implements OnInit {
                     console.log("Login Failed");
                     this.loading = false;
                 }
-            }, error => {
+            }, (error : Error) => {
                 this.loading = false;
-                this.error = error;
+                this.error = error.message;
+                console.log(error);
             })
     }
 }
