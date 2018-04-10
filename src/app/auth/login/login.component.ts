@@ -46,8 +46,10 @@ export class LoginComponent implements OnInit {
                 if (result === true) {
                     // login succesful
                     console.log("LoggedIn succesful");
+                    alert("User LoggedIn");
                 } else {
                     console.log("Login Failed");
+                    alert("Login Failed");
                     this.loading = false;
                 }
             }, (error : Error) => {

@@ -31,8 +31,11 @@ export class SignupComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.authSubscription.unsubscribe();
-        this.loginSubscription.unsubscribe();
+        if (this.authSubscription != null  && this.loginSubscription != null) {
+            this.authSubscription.unsubscribe();
+            this.loginSubscription.unsubscribe();
+        }
+
     }
 
     onSubmit() : void {
@@ -48,6 +51,7 @@ export class SignupComponent implements OnInit, OnDestroy {
                     this.loginSubscription = this.authService.login(user).subscribe(
                         (response) => {
                             if(response == true) {
+                                console.log("User Login Succesful");
                                 alert("User Login Succesful");
                             }
                         }
