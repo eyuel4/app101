@@ -9,15 +9,21 @@ export class AuthInterceptor implements HttpInterceptor {
 
     }
 
+ 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        // Only add to localhost requests since Giphy's API fails
-        if (request.url.indexOf('localhost') > -1) {
+        return Observable.fromPromise(this.handleAccess(request, next));
+    }
+
+    private async handleAccess(request: HttpRequest<any>, next: HttpHandler): Promise<HttpEvent<any>> {
+        // Only add to known domains since we don't want to send our tokens to just anyone.
+        if (request.urlWithParams.indexOf('localhost') > -1) {
+            const accessToken = await this.oktaAuth.getAccessToken();
             request = request.clone({
                 setHeaders: {
-                    Authorization: `Bearer ${this.oktaAuth.getAccessToken().accessToken}`
+                    Authorization: `Bearer ` + accessToken
                 }
             });
         }
-        return next.handle(request);
+        return next.handle(request).toPromise();
     }
 }

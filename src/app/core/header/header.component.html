@@ -27,6 +27,12 @@
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/not-found']">PageNotFound</a>
             </li> -->
+            <li class="nav-item">
+                <a class="nav-link" (click)="oktaAuth.logout()">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" (click)="oktaAuth.loginRedirect()">Login OKata</a>
+            </li>
         </ul>
     </div>
 </nav>
