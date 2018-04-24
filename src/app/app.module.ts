@@ -13,14 +13,7 @@ import { SharedModule } from './shared/shared.module';
 import { AuthenticationService } from '../app/auth/authentication.service';
 import { MoviesService } from './shared/service/movies.service';
 import { MovieModule } from './movies/movie.module';
-import { OktaAuthModule } from '@okta/okta-angular';
-import { AuthInterceptor } from './shared/auth.interceptor';
 
-const config = {
-  issuer: 'https://dev-686865.oktapreview.com/oauth2/default',
-  redirectUri: 'http://localhost:4200/implicit/callback',
-  clientId: '0oaem06ruwIoFLeuN0h7'
-};
 
 @NgModule({
   declarations: [
@@ -33,11 +26,9 @@ const config = {
     AppRoutingModule,
     HttpClientModule,
     SharedModule,
-    MovieModule,
-    OktaAuthModule.initAuth(config)
+    MovieModule
   ],
-  providers: [ AuthenticationService, MoviesService,
-               {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true} ],
+  providers: [ AuthenticationService, MoviesService],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
