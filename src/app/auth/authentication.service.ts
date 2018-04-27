@@ -1,10 +1,12 @@
 import {Router, ActivatedRoute} from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
+import { Base64 } from 'js-base64';
 import 'rxjs';
+
 import { User } from '../shared/model/common/User.model';
+import { ApiRequestService } from "../shared/service/api/api-request.service";
 
 @Injectable()
 export class AuthenticationService {
@@ -12,12 +14,16 @@ export class AuthenticationService {
     private signUpUrl = 'http://localhost:8082/ibexapp/ibex/api/v1/user/signup';
     private headers = new Headers({'Content-Type' : 'application/json'});
 
-    constructor(private httpClient : HttpClient) {
+    constructor(private httpClient : HttpClient, private apiRequest : ApiRequestService) {
 
     }
 
     login(user : User): Observable<boolean> {
-        const headers = new HttpHeaders({'Content-Type' : 'application/json; charset=utf-8'});
+        const headers = new HttpHeaders({
+            'Content-Type' : 'application/json; charset=utf-8',
+            'Authorization' : 'Basic ' + Base64.encode(user.username+ ':' + user.password)
+        });
+ 
         const username = user.username;
         const password = user.password;
         console.log(username + "+"+password);
