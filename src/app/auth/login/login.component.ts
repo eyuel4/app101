@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { AuthenticationService } from '../authentication.service';
 import { User } from '../../shared/model/common/User.model';
+import { LoginService } from 
 
 @Component({
     selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
     loading = false;
     error = '';
 
-    constructor(private authenticationService : AuthenticationService) {
+    constructor(private authenticationService : AuthenticationService,
+                private loginService : LoginService) {
 
     }
     ngOnInit() {
@@ -37,7 +39,7 @@ export class LoginComponent implements OnInit {
         this.login();
     }
 
-    login() {
+/*    login() {
         console.log("About to login");
         this.loading = true;
         this.authenticationService.login(this.model)
@@ -56,6 +58,17 @@ export class LoginComponent implements OnInit {
                 this.loading = false;
                 this.error = error.message;
                 console.log(error);
+            })
+    }
+    */
+
+    login() {
+        this.model = this.loginForm.value;
+        this.loginService.getToken(this.model.username, this.model.password)
+            .subscribe(resp => {
+                if (resp.user === undefined || resp.user.token === undefined) {
+                    
+                }
             })
     }
 }
