@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../authentication.service';
 import { User } from '../../shared/model/common/User.model';
-import { LoginService } from 
+import { LoginService } from '../../shared/service/api/login.service';
 
 @Component({
     selector: 'app-login',
@@ -73,6 +73,7 @@ export class LoginComponent implements OnInit {
                     this.errMsg = 'Username or password is incorrect';
                     return;
                 }
+                console.log("User Login Successful!");
                 this.router.navigate([resp.landingPage]);
             },
             errResponse => {

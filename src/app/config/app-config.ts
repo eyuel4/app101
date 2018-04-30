@@ -12,7 +12,9 @@ export class AppConfig {
     public apiPort: string = "";
     public apiProtocol : string;
     public apiHostName : string;
-    public baseApiPath : string = "http://localhost:4200";
+    public baseApiPathAuthServer : string = "http://localhost:8081/ibextubeapp/oauth-server";
+    public baseApiPathResourceServe : string = "http://localhost:8082/ibexapp/oauth-resource";
+    public baseApiPathUIServer : string = "http://localhost:4200";
 
 
 }

@@ -16,7 +16,7 @@ export class LoginService {
     constructor(private apiRequest : ApiRequestService,
                 private userInfoService : UserInfoService) {}
 
-    login(username : string, password : string) : Observable<any> {
+    getToken(username : string, password : string) : Observable<any> {
         let me = this;
 
         let bodyData : LoginRequestParam = {
@@ -24,10 +24,10 @@ export class LoginService {
             "password" : password,
         }
 
-        let loginDataSubject : BehaviorSubject<any> = new BehaviourSubject<any>([]);
+        let loginDataSubject : BehaviorSubject<any> = new BehaviorSubject<any>([]);
         let loginInfoReturn : LoginInfoInStorage; // Object that we want to send back to Login page
 
-        this.apiRequest.post('/oauth/token', bodyData)
+        this.apiRequest.post('/oauth/token', bodyData, "authorization")
             .subscribe(jsonResp => {
                 if (jsonResp !== undefined && jsonResp !== null && jsonResp.operationStatus === "SUCCESS") {
                     // Create a success object that we want to send back to login page

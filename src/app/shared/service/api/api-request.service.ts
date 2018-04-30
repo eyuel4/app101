@@ -24,9 +24,10 @@ export class ApiRequestService {
         return headers;
     }
 
-    get(url:string, urlParams?: HttpParams) : Observable<any> {
+    get(url:string, serverType: string, urlParams?: HttpParams) : Observable<any> {
+        let baseApiPath : string = this.getBaseApiPath(serverType);
         let me  = this;
-        return this.http.get(this.appConfig.baseApiPath + url, {headers : this.getHeaders(), params:urlParams} )
+        return this.http.get(baseApiPath + url, {headers : this.getHeaders(), params:urlParams} )
             .catch(function(error : any) {
                 console.log("Some error in catch");
                 if (error.status === 401 || error.status === 403) {
@@ -36,9 +37,10 @@ export class ApiRequestService {
             });
     }
 
-    post(url: string, body:Object) : Observable<any> {
+    post(url: string, body:Object, serverType: string) : Observable<any> {
+        let baseApiPath : string = this.getBaseApiPath(serverType);
         let me = this;
-        return this.http.put(this.appConfig.baseApiPath + url, JSON.stringify(body), { headers:this.getHeaders()})
+        return this.http.put(baseApiPath + url, JSON.stringify(body), { headers:this.getHeaders()})
             .catch(function(error:any){
                 if (error.status === 401) {
                     me.router.navigate(['/logout']);
@@ -47,14 +49,31 @@ export class ApiRequestService {
             });
     }
 
-    delete(url:string) : Observable<any> {
+    delete(url:string, serverType: string) : Observable<any> {
+        let baseApiPath : string = this.getBaseApiPath(serverType);
         let me  = this;
-        return this.http.delete(this.appConfig.baseApiPath + url, { headers:this.getHeaders()})
+        return this.http.delete(baseApiPath + url, { headers:this.getHeaders()})
             .catch(function(error:any){
                 if (error.status === 401) {
                     me.router.navigate(['/logout']);
                 }
                 return Observable.throw(error || 'Server error')
             });
+    }
+
+    getBaseApiPath(serverType : string) : string {
+        let baseApiPath : string;
+
+        if(serverType === "authorization") {
+            baseApiPath = this.appConfig.baseApiPathAuthServer;
+        }
+        else if (serverType === "resource") {
+            baseApiPath = this.appConfig.baseApiPathResourceServe;   
+        }
+        else {
+            baseApiPath = this.appConfig.baseApiPathUIServer;
+        }
+
+        return baseApiPath;
     }
 }
