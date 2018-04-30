@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../authentication.service';
 import { User } from '../../shared/model/common/User.model';
@@ -15,9 +16,11 @@ export class LoginComponent implements OnInit {
     model: User;
     loading = false;
     error = '';
+    errMsg : string = '';
 
     constructor(private authenticationService : AuthenticationService,
-                private loginService : LoginService) {
+                private loginService : LoginService,
+                private router : Router) {
 
     }
     ngOnInit() {
@@ -66,9 +69,27 @@ export class LoginComponent implements OnInit {
         this.model = this.loginForm.value;
         this.loginService.getToken(this.model.username, this.model.password)
             .subscribe(resp => {
-                if (resp.user === undefined || resp.user.token === undefined) {
-                    
+                if (resp.user === undefined || resp.user.token === undefined || resp.user.token === "INVALID") {
+                    this.errMsg = 'Username or password is incorrect';
+                    return;
                 }
-            })
+                this.router.navigate([resp.landingPage]);
+            },
+            errResponse => {
+                switch(errResponse.status) {
+                    case 401:
+                    this.errMsg = 'Username or password is incorrect';
+                    break;
+                    case 404:
+                    this.errMsg = 'Service not found';
+                    case 408:
+                    this.errMsg = 'Request Timeout';
+                    case 500:
+                    this.errMsg = 'Internal Server Error';
+                    default:
+                    this.errMsg = 'Server Error';
+                }
+            }
+        );
     }
 }
