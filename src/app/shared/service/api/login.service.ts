@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Base64 } from 'js-base64';
 
 import { UserInfoService, LoginInfoInStorage } from '../../../auth/user_info.service';
 import { ApiRequestService } from './api-request.service';
@@ -14,9 +16,10 @@ export interface LoginRequestParam {
 export class LoginService {
     public landingPage : string = "/home/dashboard/order";
     constructor(private apiRequest : ApiRequestService,
-                private userInfoService : UserInfoService) {}
+                private userInfoService : UserInfoService,
+                private http : HttpClient) {}
 
-    getToken(username : string, password : string) : Observable<any> {
+    getToken(username : string, password : string) : Observable<any> | any {
         let me = this;
 
         let bodyData : LoginRequestParam = {
@@ -27,7 +30,7 @@ export class LoginService {
         let loginDataSubject : BehaviorSubject<any> = new BehaviorSubject<any>([]);
         let loginInfoReturn : LoginInfoInStorage; // Object that we want to send back to Login page
 
-        this.apiRequest.post('/oauth/token', bodyData, "authorization")
+        this.apiRequest.postForToken('/oauth/token', bodyData, "authorization")
             .subscribe(jsonResp => {
                 if (jsonResp !== undefined && jsonResp !== null && jsonResp.operationStatus === "SUCCESS") {
                     // Create a success object that we want to send back to login page
@@ -64,7 +67,24 @@ export class LoginService {
             };
         });
         return loginDataSubject;
-    }
+        /*
+       let authUrl = 'http://localhost:8081/ibextubeapp/oauth-server/oauth/token';
+       const headers = new HttpHeaders({
+        'Content-Type' : 'application/json; charset=utf-8',
+        'Authorization' : 'Basic ' + Base64.encode('fooClientIdPassword:secret')
+    });
+
+        let params = new HttpParams()
+                     .set('grant_type','password')
+                     .set('username',bodyData.username)
+                     .set('password',bodyData.password);
+
+       return this.http.post(authUrl, null, {headers: headers, params: params})
+           .map((response: Response) => {
+               let token = response;
+
+           }).catch((error:any) => Observable.throw(error || 'Server error'));*/
+    } 
 
     logout(navigatetoLogout=true) : void {
         // clear token remove user from local storage to log user out
@@ -72,5 +92,5 @@ export class LoginService {
         if (navigatetoLogout) {
             
         }
-    }
+    } 
 }
