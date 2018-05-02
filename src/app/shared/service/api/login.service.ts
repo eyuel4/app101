@@ -14,7 +14,7 @@ export interface LoginRequestParam {
 
 @Injectable()
 export class LoginService {
-    public landingPage : string = "/home/dashboard/order";
+    public landingPage : string = "/home";
     constructor(private apiRequest : ApiRequestService,
                 private userInfoService : UserInfoService,
                 private http : HttpClient) {}
@@ -40,10 +40,10 @@ export class LoginService {
                         "message" : jsonResp.operationMessage,
                         "landingPage" : this.landingPage,
                         "user" : {
-                            "userId" : jsonResp.item.userId,
-                            "email" : jsonResp.item.emailAddress,
-                            "displayName" : jsonResp.item.firstName + " " + jsonResp.item.lastName,
-                            "token" : jsonResp.item.token,
+                            "userId" : jsonResp.user.username,
+                            //"email" : jsonResp.item.emailAddress,
+                           // "displayName" : jsonResp.item.firstName + " " + jsonResp.item.lastName,
+                            "token" : jsonResp.access_token,
                         }
                     };
                     // Store username and JWT token in local storage to keep user logged in

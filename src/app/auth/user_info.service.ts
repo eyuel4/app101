@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 
 export interface UserInStorage {
     userId : string;
-    email : string;
-    displayName : string;
+   // email : string;
+   // displayName : string;
     token : string;
 }
 
@@ -56,7 +56,7 @@ export class UserInfoService {
     getUserName() : string {
         let userObj : UserInStorage = this.getUserInfo();
         if (userObj !== null) {
-            return userObj.displayName
+            return null;//userObj.displayName
         }
         return "no-user";
     }
