@@ -32,7 +32,8 @@ export class LoginService {
 
         this.apiRequest.postForToken('/oauth/token', bodyData, "authorization")
             .subscribe(jsonResp => {
-                if (jsonResp !== undefined && jsonResp !== null && jsonResp.operationStatus === "SUCCESS") {
+                if (jsonResp !== undefined && jsonResp !== null) {
+                    console.log("JsonResponse is not null");
                     // Create a success object that we want to send back to login page
                     loginInfoReturn = {
                         "success" : true,
@@ -45,7 +46,6 @@ export class LoginService {
                             "token" : jsonResp.item.token,
                         }
                     };
-
                     // Store username and JWT token in local storage to keep user logged in
                     this.userInfoService.storeUserInfo(JSON.stringify(loginInfoReturn.user));
                 }
@@ -57,6 +57,7 @@ export class LoginService {
                         "landingPage": "/login"
                     };
                 }
+                console.log(loginInfoReturn);
                 loginDataSubject.next(loginInfoReturn);
             },
         err => {
@@ -67,8 +68,8 @@ export class LoginService {
             };
         });
         return loginDataSubject;
-        /*
-       let authUrl = 'http://localhost:8081/ibextubeapp/oauth-server/oauth/token';
+        
+     /*  let authUrl = 'http://localhost:8081/ibextubeapp/oauth-server/oauth/token';
        const headers = new HttpHeaders({
         'Content-Type' : 'application/json; charset=utf-8',
         'Authorization' : 'Basic ' + Base64.encode('fooClientIdPassword:secret')
@@ -81,9 +82,11 @@ export class LoginService {
 
        return this.http.post(authUrl, null, {headers: headers, params: params})
            .map((response: Response) => {
-               let token = response;
+               if (response !== undefined && response !== null && response.ok) {
 
-           }).catch((error:any) => Observable.throw(error || 'Server error'));*/
+               }
+
+           }).catch((error:any) => Observable.throw(error || 'Server error')); */
     } 
 
     logout(navigatetoLogout=true) : void {

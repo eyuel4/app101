@@ -5,6 +5,7 @@ import { AppConfig } from "../../../config/app-config";
 import { UserInfoService } from '../../../auth/user_info.service';
 import { Router } from '@angular/router';
 import { User } from '../../model/common/User.model';
+import { Base64 } from 'js-base64';
 
 @Injectable()
 export class ApiRequestService {
@@ -52,17 +53,22 @@ export class ApiRequestService {
 
     postForToken(url: string, body:Object, serverType: string) : Observable<any> {
         let baseApiPath : string = this.getBaseApiPath(serverType);
+        //let authUrl = 'http://localhost:8081/ibextubeapp/oauth-server/oauth/token';
         let me = this;
-        let myHeader = new HttpHeaders();
-        myHeader.append('Content-Type', 'application/json');
-        myHeader.append('Authorization', 'Basic ' + btoa('fooClientIdPassword:secret'));
-
+        // let myHeader = new HttpHeaders();
+        // myHeader.append('Content-Type', 'application/json');
+        // myHeader.append('Authorization', 'Basic ' + btoa('fooClientIdPassword:secret'));
+        const myHeader = new HttpHeaders({
+            'Content-Type' : 'application/json; charset=utf-8',
+            'Authorization' : 'Basic ' + Base64.encode('fooClientIdPassword:secret')
+        });
         let params = new HttpParams()
-                     .set('grant_type','password')
                      .set('username','john')
-                     .set('password','123');
-
-        return this.http.post(baseApiPath + url, JSON.stringify(body), { headers: myHeader, params: params})
+                     .set('password','123')
+                     .set('grant_type','password');
+        
+        console.log("Request out :" +baseApiPath + url);             
+        return this.http.post(baseApiPath + url, null, { headers: myHeader, params: params})
             .catch(function(error:any){
                 if (error.status === 401) {
                     me.router.navigate(['/logout']);

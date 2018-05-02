@@ -12,7 +12,7 @@ export class MoviesComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.router.navigate(['./list'],{relativeTo: this.route})
+        //this.router.navigate(['./list'],{relativeTo: this.route})
     }
 
 }
