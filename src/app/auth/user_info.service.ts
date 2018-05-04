@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
 
 export interface UserInStorage {
     userId : string;
    // email : string;
-   // displayName : string;
+    displayName : string;
     token : string;
 }
 
@@ -18,6 +19,8 @@ export interface LoginInfoInStorage {
 export class UserInfoService {
     public currentUserKey : string = "currentUser"
     public storage : Storage = localStorage;
+    public isLoggedInSubject : Subject<boolean> = new Subject<boolean>();
+    public userNameSubject : Subject<string> = new Subject<string>();
 
     constructor() {}
 
@@ -29,6 +32,8 @@ export class UserInfoService {
     //Remove userinfo from session storage
     removeUserInfo() {
         this.storage.removeItem(this.currentUserKey);
+        this.isLoggedInSubject.next(false);
+        this.userNameSubject.next('User');
     }
 
     // Get userInfo from local storage
@@ -49,14 +54,17 @@ export class UserInfoService {
     }
 
     isLoggedIn() : boolean {
-        return this.storage.getItem(this.currentUserKey)?true : false;
+        let result = this.storage.getItem(this.currentUserKey)?true : false;
+        this.isLoggedInSubject.next(result);
+        return result;
     }
 
     //Get User's Display name from session storage
     getUserName() : string {
         let userObj : UserInStorage = this.getUserInfo();
         if (userObj !== null) {
-            return null;//userObj.displayName
+            this.userNameSubject.next(userObj.displayName);
+            return userObj.userId;
         }
         return "no-user";
     }

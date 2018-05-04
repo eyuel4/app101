@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../authentication.service';
 import { User } from '../../shared/model/common/User.model';
 import { LoginService } from '../../shared/service/api/login.service';
+import { UserInfoService } from "../user_info.service";
 
 @Component({
     selector: 'app-login',
@@ -20,6 +21,7 @@ export class LoginComponent implements OnInit {
 
     constructor(private authenticationService : AuthenticationService,
                 private loginService : LoginService,
+                private userInfoService : UserInfoService,
                 private router : Router) {
 
     }
@@ -74,6 +76,8 @@ export class LoginComponent implements OnInit {
                     return;
                 }
                 console.log("User Login Successful!");
+                console.log(resp.user.userId);
+                this.userInfoService.getUserName();
                 this.router.navigate([resp.landingPage]);
             },
             errResponse => {

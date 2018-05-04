@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Base64 } from 'js-base64';
+import { Router } from '@angular/router';
 
 import { UserInfoService, LoginInfoInStorage } from '../../../auth/user_info.service';
 import { ApiRequestService } from './api-request.service';
@@ -17,7 +18,8 @@ export class LoginService {
     public landingPage : string = "/home";
     constructor(private apiRequest : ApiRequestService,
                 private userInfoService : UserInfoService,
-                private http : HttpClient) {}
+                private http : HttpClient,
+                private router : Router) {}
 
     getToken(username : string, password : string) : Observable<any> | any {
         let me = this;
@@ -42,7 +44,7 @@ export class LoginService {
                         "user" : {
                             "userId" : jsonResp.user.username,
                             //"email" : jsonResp.item.emailAddress,
-                           // "displayName" : jsonResp.item.firstName + " " + jsonResp.item.lastName,
+                            "displayName" : jsonResp.user.username,
                             "token" : jsonResp.access_token,
                         }
                     };
@@ -93,7 +95,7 @@ export class LoginService {
         // clear token remove user from local storage to log user out
         this.userInfoService.removeUserInfo();
         if (navigatetoLogout) {
-            
+            this.router.navigate(["logout"]);
         }
     } 
 }
