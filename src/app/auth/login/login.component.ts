@@ -26,14 +26,18 @@ export class LoginComponent implements OnInit {
 
     }
     ngOnInit() {
+        if (this.userInfoService.isLoggedIn()) {
+            this.userInfoService.getUserName();
+            this.router.navigate(["/home"]);
+        }
         this.loginForm = new FormGroup({
             'username': new FormControl(null, [Validators.required]),
             'password': new FormControl(null),
             'rememberMe': new FormControl(null)
         });
 
-        // reset login status
-        this.authenticationService.logout();
+        // // reset login status
+        // this.authenticationService.logout();
     }
 
     onSubmit() {
@@ -69,32 +73,36 @@ export class LoginComponent implements OnInit {
 
     login() {
         this.model = this.loginForm.value;
-        this.loginService.getToken(this.model.username, this.model.password)
-            .subscribe(resp => {
-                if (resp.user === undefined || resp.user.token === undefined || resp.user.token === "INVALID") {
-                    this.errMsg = 'Username or password is incorrect';
-                    return;
+        if (!this.userInfoService.isLoggedIn()) {
+            this.loginService.getToken(this.model.username, this.model.password)
+                .subscribe(resp => {
+                    if (resp.user === undefined || resp.user.token === undefined || resp.user.token === "INVALID") {
+                        this.errMsg = 'Username or password is incorrect';
+                        return;
+                    }
+                    console.log("User Login Successful!");
+                    console.log(resp.user.userId);
+                    this.userInfoService.isLoggedIn();
+                    this.userInfoService.getUserName();
+                    this.router.navigate([resp.landingPage]);
+                },
+                errResponse => {
+                    switch(errResponse.status) {
+                        case 401:
+                        this.errMsg = 'Username or password is incorrect';
+                        break;
+                        case 404:
+                        this.errMsg = 'Service not found';
+                        case 408:
+                        this.errMsg = 'Request Timeout';
+                        case 500:
+                        this.errMsg = 'Internal Server Error';
+                        default:
+                        this.errMsg = 'Server Error';
+                    }
                 }
-                console.log("User Login Successful!");
-                console.log(resp.user.userId);
-                this.userInfoService.getUserName();
-                this.router.navigate([resp.landingPage]);
-            },
-            errResponse => {
-                switch(errResponse.status) {
-                    case 401:
-                    this.errMsg = 'Username or password is incorrect';
-                    break;
-                    case 404:
-                    this.errMsg = 'Service not found';
-                    case 408:
-                    this.errMsg = 'Request Timeout';
-                    case 500:
-                    this.errMsg = 'Internal Server Error';
-                    default:
-                    this.errMsg = 'Server Error';
-                }
-            }
-        );
+            );
+        }
+
     }
 }
