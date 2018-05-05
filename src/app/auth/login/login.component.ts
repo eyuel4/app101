@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 
 import { AuthenticationService } from '../authentication.service';
 import { User } from '../../shared/model/common/User.model';
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit {
     loading = false;
     error = '';
     errMsg : string = '';
+    loginDataSubscription : Subscription;
 
     constructor(private authenticationService : AuthenticationService,
                 private loginService : LoginService,
@@ -35,7 +37,7 @@ export class LoginComponent implements OnInit {
             'password': new FormControl(null),
             'rememberMe': new FormControl(null)
         });
-
+        
         // // reset login status
         // this.authenticationService.logout();
     }
@@ -78,6 +80,7 @@ export class LoginComponent implements OnInit {
                 .subscribe(resp => {
                     if (resp.user === undefined || resp.user.token === undefined || resp.user.token === "INVALID") {
                         this.errMsg = 'Username or password is incorrect';
+                        console.log(this.errMsg);
                         return;
                     }
                     console.log("User Login Successful!");

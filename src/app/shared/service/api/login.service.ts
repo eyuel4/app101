@@ -55,7 +55,7 @@ export class LoginService {
                     // Create a failure object that we want to send back to login page
                     loginInfoReturn = {
                         "success": false,
-                        "message": jsonResp.msgDesc,
+                        "message": jsonResp.error_description,
                         "landingPage": "/login"
                     };
                 }

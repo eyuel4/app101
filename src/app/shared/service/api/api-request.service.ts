@@ -68,7 +68,6 @@ export class ApiRequestService {
                      .set('username',body.username)
                      .set('password',body.password)
                      .set('grant_type','password');
-        
         console.log("Request out :" +baseApiPath + url);             
         return this.http.post(baseApiPath + url, null, { headers: myHeader, params: params})
             .catch(function(error:any){
