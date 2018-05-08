@@ -4,6 +4,7 @@ import { FormGroup , FormControl, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
 import { UploadService } from '../../shared/service/api/upload.service';
+import { HttpEventType } from '@angular/common/http'
 
 import { AuthenticationService } from '../authentication.service';
 import { User } from '../../shared/model/common/User.model';
@@ -51,9 +52,11 @@ export class SignupComponent implements OnInit, OnDestroy {
     upload() {
         this.currentFileUpload = this.selectedFiles.item(0);
         this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
-            // if (event instanceof HttpResponse) {
-            //     console.log('File is completely uploaded!');
-            // }
+            if (event.type === HttpEventType.UploadProgress) {
+                console.log('Upload Progress: ' + Math.round(event.loaded /event.total) * 100 + '%');
+            } else if (event.type === HttpEventType.Response) {
+                console.log(event);
+            }
         });
 
         this.selectedFiles = undefined;

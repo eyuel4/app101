@@ -11,7 +11,7 @@ export class UploadService {
         const formdata: FormData = new FormData();
         formdata.append('file', file);
 
-        const req = new HttpRequest('POST', 'http://localhost:8085/profile/uploadpicture', formdata, {
+        const req = new HttpRequest('POST', 'http://localhost:8082/ibexapp/oauth-resource/ibex/api/user/profile/upload', formdata, {
             reportProgress: true,
             responseType: 'text'
         });
