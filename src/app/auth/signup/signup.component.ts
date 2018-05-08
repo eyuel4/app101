@@ -1,7 +1,9 @@
+//import {HttpResponse} from '@angular/common/http/src/response';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup , FormControl, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
+import { UploadService } from '../../shared/service/api/upload.service';
 
 import { AuthenticationService } from '../authentication.service';
 import { User } from '../../shared/model/common/User.model';
@@ -19,7 +21,11 @@ export class SignupComponent implements OnInit, OnDestroy {
     loginSubscription: Subscription;
     authSubscription : Subscription;
 
-    constructor(private authService : AuthenticationService) {}
+    currentFileUpload : File;
+    selectedFiles : FileList;
+
+    constructor(private authService : AuthenticationService,
+                private uploadService : UploadService) {}
 
     ngOnInit() {
         this.signupForm = new FormGroup({
@@ -36,6 +42,21 @@ export class SignupComponent implements OnInit, OnDestroy {
             this.loginSubscription.unsubscribe();
         }
 
+    }
+
+    selectFile(event) {
+        this.selectedFiles = event.target.files;
+    }
+
+    upload() {
+        this.currentFileUpload = this.selectedFiles.item(0);
+        this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
+            // if (event instanceof HttpResponse) {
+            //     console.log('File is completely uploaded!');
+            // }
+        });
+
+        this.selectedFiles = undefined;
     }
 
     onSubmit() : void {

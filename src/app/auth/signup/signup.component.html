@@ -34,6 +34,13 @@
                             id="inputPassword" placeholder="Password"
                             formControlName="password">
                     </div>
+                    <div>
+                        <label for="photo">Photo</label>
+                        <input type="file" (change)="selectFile($event)">
+                        <button 
+                            [disabled]="!selectedFiles"
+                            (click)="upload()">Upload</button>
+                    </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-success bt-lg" >Sign up</button>
                     </div>

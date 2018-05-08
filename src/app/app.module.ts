@@ -11,10 +11,11 @@ import { SharedModule } from './shared/shared.module';
 import { AuthenticationService } from '../app/auth/authentication.service';
 import { MoviesService } from './shared/service/movies.service';
 import { MovieModule } from './movies/movie.module';
-import { UserInfoService } from "./auth/user_info.service";
-import { ApiRequestService } from "./shared/service/api/api-request.service";
-import { LoginService } from "./shared/service/api/login.service";
-import { AppConfig } from "./config/app-config";
+import { UserInfoService } from './auth/user_info.service';
+import { ApiRequestService } from './shared/service/api/api-request.service';
+import { LoginService } from './shared/service/api/login.service';
+import { UploadService } from './shared/service/api/upload.service';
+import { AppConfig } from './config/app-config';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { AppConfig } from "./config/app-config";
     SharedModule,
     MovieModule
   ],
-  providers: [ AuthenticationService, MoviesService, UserInfoService, ApiRequestService, LoginService, AppConfig],
+  providers: [ AuthenticationService, MoviesService, UserInfoService, 
+               ApiRequestService, LoginService, AppConfig, UploadService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
