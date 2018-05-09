@@ -3,15 +3,18 @@ import { Observable } from 'rxjs/Observable';
 import { HttpInterceptor, 
          HttpHandler, 
          HttpEvent, 
-         HttpRequest } from '@angular/common/http';
+         HttpRequest,
+         HttpResponse } from '@angular/common/http';
+
+import { AuthenticationService } from './authentication.service';
 
 
 export class JwtInterceptor implements HttpInterceptor {
 
-    constructor(public auth: AuthService) {}
+    constructor(public auth: AuthenticationService) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        return next.handle(req).do((event: HttpEvent<any>) => {
+        return next.handle(request).do((event: HttpEvent<any>) => {
             if (event instanceof HttpResponse) {
                 // do stuff with response if you want
             }

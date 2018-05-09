@@ -92,7 +92,7 @@ export class LoginComponent implements OnInit {
                 errResponse => {
                     switch(errResponse.status) {
                         case 401:
-                        this.errMsg = 'Username or password is incorrect';
+                        this.errMsg = 'Username or password is incorrect1';
                         break;
                         case 404:
                         this.errMsg = 'Service not found';

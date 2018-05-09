@@ -5,7 +5,7 @@ import { AuthenticationService } from "../../auth/authentication.service";
 
 @Injectable()
 export class MovieService  {
-    private movieUrl = 'http://localhost:8082/ibexapp/oauth-resource/ibex/api/v1/movies';
+    private movieUrl = 'http://localhost:8082/ibexapp/oauth-resource/ibex/api/movies';
 
     private headers = new HttpHeaders({
         'Content-Type': 'application/json; charset=utf-8',

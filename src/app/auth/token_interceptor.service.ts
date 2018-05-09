@@ -5,17 +5,25 @@ import { HttpInterceptor,
         HttpHandler } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
+import { AuthenticationService } from './authentication.service';
+
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
-
-    constructor(public auth : AuthService) {}
+    private whiteList = [
+        'http://localhost:8081/ibextubeapp/oauth-server/oauth/token'
+    ]
+    constructor(public auth : AuthenticationService) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        request = request.clone({
-            setHeaders: {
-                Authorization: `Bearer ${this.auth.getToken()}`
-            }
-        });
+        // If request is not in whitlist add header
+        if (!this.whiteList.includes(request.url)) {
+            request = request.clone({
+                setHeaders: {
+                    Authorization: `Bearer ${this.auth.getToken()}`
+                }
+            });
+        }
+
         return next.handle(request);
     }
 
