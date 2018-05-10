@@ -13,7 +13,9 @@ export class HeaderComponent implements OnInit, OnDestroy{
     isLoggedIn : boolean = false;
     isLoggedInSubscription : Subscription;
     userNameSubscription : Subscription;
+    userIdSubscription : Subscription;
     userNameDisplay : string;
+    userId : string;
 
     constructor(private userInfoService : UserInfoService,
                 private loginService : LoginService) {
@@ -34,11 +36,19 @@ export class HeaderComponent implements OnInit, OnDestroy{
             }
         );
 
+       this.userIdSubscription = this.userInfoService.userIdSubject.subscribe(
+            (userId : string) => {
+                this.userId = userId;
+                console.log(this.userId +"userId");
+            }
+        )
+
     }
 
     ngOnDestroy(): void {
         this.isLoggedInSubscription.unsubscribe();
         this.userNameSubscription.unsubscribe();
+        this.userIdSubscription.unsubscribe();
     }
 
     // Logout User

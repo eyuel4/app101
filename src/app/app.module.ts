@@ -18,6 +18,7 @@ import { LoginService } from './shared/service/api/login.service';
 import { UploadService } from './shared/service/api/upload.service';
 import { AppConfig } from './config/app-config';
 import { TokenInterceptor } from './auth/token_interceptor.service';
+import { UserDetailService } from './shared/service/api/user-detail.service';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { TokenInterceptor } from './auth/token_interceptor.service';
   ],
   providers: [ AuthenticationService, MoviesService, UserInfoService, 
                ApiRequestService, LoginService, AppConfig, UploadService,
+               UserDetailService
               //  {
               //   provide: HTTP_INTERCEPTORS,
               //   useClass: TokenInterceptor,

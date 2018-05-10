@@ -21,6 +21,7 @@ export class UserInfoService {
     public storage : Storage = localStorage;
     public isLoggedInSubject : Subject<boolean> = new Subject<boolean>();
     public userNameSubject : Subject<string> = new Subject<string>();
+    public userIdSubject : Subject<string> = new Subject<string>();
 
     constructor() {}
 
@@ -56,6 +57,7 @@ export class UserInfoService {
     isLoggedIn() : boolean {
         let result = this.storage.getItem(this.currentUserKey)?true : false;
         this.isLoggedInSubject.next(result);
+        this.userIdSubject.next(this.getUserId());
         return result;
     }
 
@@ -69,10 +71,21 @@ export class UserInfoService {
         return "no-user";
     }
 
+    // Get Token from LocalStorage
     getStoredToken() : string | null {
         let userObj : UserInStorage = this.getUserInfo();
         if (userObj !== null) {
             return userObj.token;
+        }
+        return null;
+    }
+
+    // Get UserId from LocalStorage
+    getUserId() : string {
+        let userObj : UserInStorage = this.getUserInfo();
+        if (userObj !== null) {
+            this.userIdSubject.next(userObj.userId);
+            return userObj.userId;
         }
         return null;
     }
