@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserInfoService } from "../../auth/user_info.service";
 import { Subscription } from 'rxjs/Subscription';
+
 import { LoginService } from "../../shared/service/api/login.service";
+import { UserDetailService } from "../../shared/service/api/user-detail.service";
 
 @Component({
     selector:'app-header',
@@ -14,11 +16,13 @@ export class HeaderComponent implements OnInit, OnDestroy{
     isLoggedInSubscription : Subscription;
     userNameSubscription : Subscription;
     userIdSubscription : Subscription;
+    userDetailSubscription : Subscription;
     userNameDisplay : string;
     userId : string;
 
     constructor(private userInfoService : UserInfoService,
-                private loginService : LoginService) {
+                private loginService : LoginService,
+                private userDetailService : UserDetailService) {
 
     }
 
@@ -41,7 +45,14 @@ export class HeaderComponent implements OnInit, OnDestroy{
                 this.userId = userId;
                 console.log(this.userId +"userId");
             }
-        )
+        );
+
+       this.userDetailSubscription = this.userDetailService.getUserDetail(this.userId).subscribe(
+            (user : string) => {
+                this.userNameDisplay = "Hello World";
+                console.log("Hello World from backend");
+            }
+        );
 
     }
 
