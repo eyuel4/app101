@@ -10,8 +10,8 @@ import { ApiRequestService } from "../shared/service/api/api-request.service";
 
 @Injectable()
 export class AuthenticationService {
-    private authUrl = 'http://localhost:8082/ibexapp/ibex/api/v1/user/authenticate';
-    private signUpUrl = 'http://localhost:8082/ibexapp/ibex/api/v1/user/signup';
+    private authUrl = 'http://localhost:8082/ibexapp/ibex/api/authenticate';
+    private signUpUrl = 'http://localhost:8082/ibexapp/ibex/api/signup';
     private headers = new Headers({'Content-Type' : 'application/json'});
 
     constructor(private httpClient : HttpClient, private apiRequest : ApiRequestService) {

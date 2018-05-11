@@ -35,12 +35,12 @@ import { UserDetailService } from './shared/service/api/user-detail.service';
   ],
   providers: [ AuthenticationService, MoviesService, UserInfoService, 
                ApiRequestService, LoginService, AppConfig, UploadService,
-               UserDetailService
-              //  {
-              //   provide: HTTP_INTERCEPTORS,
-              //   useClass: TokenInterceptor,
-              //   multi: true
-              // } 
+               UserDetailService,
+                {
+                 provide: HTTP_INTERCEPTORS,
+                 useClass: TokenInterceptor,
+                 multi: true
+               } 
             ],
   bootstrap: [ AppComponent ]
 })
