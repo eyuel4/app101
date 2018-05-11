@@ -5,8 +5,9 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { AuthenticationService } from '../authentication.service';
 import { User } from '../../shared/model/common/User.model';
-import { LoginService } from '../../shared/service/api/login.service';
+import { LoginService } from "../../shared/service/api/login.service";
 import { UserInfoService } from "../user_info.service";
+import { UserDetailService } from "../../shared/service/api/user-detail.service";
 
 @Component({
     selector: 'app-login',
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
     constructor(private authenticationService : AuthenticationService,
                 private loginService : LoginService,
                 private userInfoService : UserInfoService,
+                private userDetailService : UserDetailService,  
                 private router : Router) {
 
     }
@@ -87,6 +89,7 @@ export class LoginComponent implements OnInit {
                     console.log(resp.user.userId);
                     this.userInfoService.isLoggedIn();
                     this.userInfoService.getUserName();
+                    this.userDetailService.getUserDetail(resp.user.userId);
                     this.router.navigate([resp.landingPage]);
                 },
                 errResponse => {
