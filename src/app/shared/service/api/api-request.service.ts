@@ -34,6 +34,7 @@ export class ApiRequestService {
             .catch(function(error : any) {
                 console.log("Some error in catch");
                 if (error.status === 401 || error.status === 403) {
+                    console.log("Logging out1");
                     me.router.navigate(['/logout']);
                 }
                 return Observable.throw(error || 'Server error')
@@ -46,6 +47,7 @@ export class ApiRequestService {
         return this.http.put(baseApiPath + url, JSON.stringify(body), { headers:this.getHeaders()})
             .catch(function(error:any){
                 if (error.status === 401) {
+                    console.log("Logging out");
                     me.router.navigate(['/logout']);
                 }
                 return Observable.throw(error || 'Server error')

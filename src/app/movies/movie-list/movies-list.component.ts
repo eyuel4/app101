@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Movies } from "../../shared/model/movie/Movies.model";
 import { Photo } from "../../shared/model/common/Photo.model";
 import { MovieService } from "../../shared/service/movie.service";
+import { UserInfoService } from '../../auth/user_info.service';
 
 @Component({
     selector: 'app-movies-list',
@@ -55,11 +56,14 @@ export class MoviesListComponent implements OnInit {
     //     )
     // ]
 
-    constructor(private movieService: MovieService) {}
+    constructor(private movieService: MovieService,
+                private userInfoService: UserInfoService) {}
 
     ngOnInit() {
         console.log(this.movies);
         console.log("Hello World");
+
+        this.userInfoService.isLoggedIn();
         this.movieService.getMovies()
             .subscribe(
                 (movies: Movies[]) => {

@@ -12,9 +12,8 @@ import { UserDetailService } from "../../shared/service/api/user-detail.service"
 })
 export class HeaderComponent implements OnInit, OnDestroy{
     isAuthenticated: boolean;
-    isLoggedIn : boolean = false;
+    isLoggedIn : boolean;
     isLoggedInSubscription : Subscription;
-    userNameSubscription : Subscription;
     userIdSubscription : Subscription;
     userDetailSubscription : Subscription;
     userNameDisplay : string;
@@ -31,12 +30,14 @@ export class HeaderComponent implements OnInit, OnDestroy{
             (result : boolean) => {
                 this.isLoggedIn = result;
                 console.log(result);
-            }
-        );
-        this.userNameSubscription = this.userInfoService.userNameSubject.subscribe(
-            (userName : string) => {
-                this.userNameDisplay = userName;
-                console.log(this.userNameDisplay);
+                // If user is loggedIn subscribe to userDetail
+                if (this.isLoggedIn) {
+                    this.userDetailSubscription = this.userDetailService.getUserDetail(this.userId).subscribe(
+                        (user : string) => {
+                            this.userNameDisplay = "Test User";
+                        }   
+                    );
+                }
             }
         );
 
@@ -47,18 +48,23 @@ export class HeaderComponent implements OnInit, OnDestroy{
             }
         );
 
-       this.userDetailSubscription = this.userDetailService.getUserDetail(this.userId).subscribe(
-            (user : string) => {
-                this.userNameDisplay = "Hello World";
-                console.log("Hello World from backend");
-            }
-        );
+        // if(!this.isLoggedIn) {
+        //     this.userDetailSubscription = this.userDetailService.getUserDetail(this.userId).subscribe(
+        //         (user : string) => {
+        //             this.userNameDisplay = "Hello World";
+        //             console.log("Hello World from backend");
+        //         }
+        //     );
+        // }
+
+        if(this.isLoggedIn) {
+            console.log("Is loggedIn");
+        }
 
     }
 
     ngOnDestroy(): void {
         this.isLoggedInSubscription.unsubscribe();
-        this.userNameSubscription.unsubscribe();
         this.userIdSubscription.unsubscribe();
     }
 

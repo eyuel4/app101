@@ -73,7 +73,7 @@ export class AuthenticationService {
     getToken(): String {
       var currentUser = JSON.parse(localStorage.getItem('currentUser'));
       var token = currentUser && currentUser.token;
-      console.log("Token " + token);
+      //console.log("Token " + token);
       return token ? token : "";
     }
  

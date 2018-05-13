@@ -4,7 +4,7 @@ import { Movies } from '../../shared/model/movie/Movies.model';
 import { MoviesService } from '../../shared/service/movies.service';
 import { Photo } from '../../shared/model/common/Photo.model';
 import { User } from '../../shared/model/common/User.model';
-
+import { UserInfoService } from '../../auth/user_info.service';
 @Component({
     selector:'app-home',
     templateUrl:'./home.component.html',
@@ -15,7 +15,8 @@ export class HomeComponent implements OnInit {
     //xs : Movies;
     //user : User;
 
-    constructor(private moviesService : MoviesService) {
+    constructor(private moviesService : MoviesService,
+                private userInfoService : UserInfoService) {
        // this.movies = new Array();
        // this.xs  = new Movies(100,'Harry Potter','Good movie',new Photo(12, 'HarryPotter', 'https://static.boredpanda.com/blog/wp-content/uploads/2016/01/16-year-old-artist-dimitra-milan-1.jpg'));
        // this.xs = new Movies();
@@ -35,6 +36,7 @@ export class HomeComponent implements OnInit {
     // }
 
     ngOnInit() {
+        //this.userInfoService.isLoggedIn();
         this.movies = this.moviesService.getMovies();
     }
 }

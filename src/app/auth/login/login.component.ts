@@ -31,7 +31,8 @@ export class LoginComponent implements OnInit {
     }
     ngOnInit() {
         if (this.userInfoService.isLoggedIn()) {
-            this.userInfoService.getUserName();
+            //this.userInfoService.getUserName();
+            console.log("Login Login");
             this.router.navigate(["/home"]);
         }
         this.loginForm = new FormGroup({
@@ -42,14 +43,6 @@ export class LoginComponent implements OnInit {
         
         // // reset login status
         // this.authenticationService.logout();
-    }
-
-    onSubmit() {
-         let user : User = this.loginForm.value;
-         this.model = user;
-        console.log(this.loginForm);
-        console.log(user.username + "" + user.password);
-        this.login();
     }
 
 /*    login() {
@@ -74,8 +67,8 @@ export class LoginComponent implements OnInit {
             })
     }
     */
-
-    login() {
+    
+    onLogin() {
         this.model = this.loginForm.value;
         if (!this.userInfoService.isLoggedIn()) {
             this.loginService.getToken(this.model.username, this.model.password)
@@ -88,7 +81,7 @@ export class LoginComponent implements OnInit {
                     console.log("User Login Successful!");
                     console.log(resp.user.userId);
                     this.userInfoService.isLoggedIn();
-                    this.userInfoService.getUserName();
+                   // this.userInfoService.getUserName();
                     this.userDetailService.getUserDetail(resp.user.userId);
                     this.router.navigate([resp.landingPage]);
                 },

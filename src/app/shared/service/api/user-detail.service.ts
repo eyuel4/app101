@@ -39,7 +39,7 @@ export class UserDetailService {
                 this.apiRequest.get('/ibex/api/user/{userId}', "resource")
                 .subscribe(
                     (jsonResp) => {
-                        console.log("Response on getUserDetail");
+                        console.log("Response on getUserDetail from backend");
                         let user : string = null;
                         if (jsonResp !== undefined && jsonResp !== null) {
                             console.log("UserDetail JsonResponse is not null");
