@@ -1,4 +1,4 @@
-import { MovieComment } from '../movie/MovieComment.model';
+import { UserRole } from '../common/UserRole.model';
 
 export class User {
     public idUser : number;
@@ -9,4 +9,5 @@ export class User {
     public insDate : Date;
     public lastUpdated : Date;
     public birthday : Date;
+    public userRole : Array<UserRole>
 }
