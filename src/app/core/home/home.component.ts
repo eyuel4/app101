@@ -36,7 +36,7 @@ export class HomeComponent implements OnInit {
     // }
 
     ngOnInit() {
-        //this.userInfoService.isLoggedIn();
+        this.userInfoService.isLoggedIn();
         this.movies = this.moviesService.getMovies();
     }
 }

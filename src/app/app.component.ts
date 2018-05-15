@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   constructor(private userInfoService : UserInfoService) {}
 
   ngOnInit() {
-    this.userInfoService.isLoggedIn();
+    // this.userInfoService.isLoggedIn();
   }
 
 }

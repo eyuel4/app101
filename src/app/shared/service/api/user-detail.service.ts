@@ -25,7 +25,7 @@ export class UserDetailService {
         //Create Request URL params
         let me = this;
         let params: HttpParams = new HttpParams();
-        params =  params.append('id', userId);
+        params.append('id', userId);
 
         let userDetailSubject = new Subject<any>();
 
@@ -36,7 +36,7 @@ export class UserDetailService {
         //         }
         //     )
         //     if(this.isLoggedIn) {
-                this.apiRequest.get('/ibex/api/user/{userId}', "resource")
+                this.apiRequest.get(`/ibex/api/user/:id`, "resource", params)
                 .subscribe(
                     (jsonResp) => {
                         console.log("Response on getUserDetail from backend");

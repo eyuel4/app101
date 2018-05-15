@@ -31,13 +31,13 @@ export class HeaderComponent implements OnInit, OnDestroy{
                 this.isLoggedIn = result;
                 console.log(result);
                 // If user is loggedIn subscribe to userDetail
-                if (this.isLoggedIn) {
-                    this.userDetailSubscription = this.userDetailService.getUserDetail(this.userId).subscribe(
-                        (user : string) => {
-                            this.userNameDisplay = "Test User";
-                        }   
-                    );
-                }
+                // if (this.isLoggedIn) {
+                //     this.userDetailSubscription = this.userDetailService.getUserDetail(this.userId).subscribe(
+                //         (user : string) => {
+                //             this.userNameDisplay = "Test User";
+                //         }   
+                //     );
+                // }
             }
         );
 
@@ -48,14 +48,14 @@ export class HeaderComponent implements OnInit, OnDestroy{
             }
         );
 
-        // if(!this.isLoggedIn) {
-        //     this.userDetailSubscription = this.userDetailService.getUserDetail(this.userId).subscribe(
-        //         (user : string) => {
-        //             this.userNameDisplay = "Hello World";
-        //             console.log("Hello World from backend");
-        //         }
-        //     );
-        // }
+        if(!this.isLoggedIn) {
+            this.userDetailSubscription = this.userDetailService.getUserDetail(this.userId).subscribe(
+                (user : string) => {
+                    this.userNameDisplay = "Hello World";
+                    console.log("Hello World from backend");
+                }
+            );
+        }
 
         if(this.isLoggedIn) {
             console.log("Is loggedIn");
