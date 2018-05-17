@@ -3,10 +3,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import { Base64 } from 'js-base64';
-import 'rxjs';
+import { Subject } from 'rxjs/Subject';
 
 import { User } from '../shared/model/common/User.model';
 import { ApiRequestService } from "../shared/service/api/api-request.service";
+import { UserDetail } from "../shared/model/common/UserDetail.model";
 
 @Injectable()
 export class AuthenticationService {
@@ -46,9 +47,9 @@ export class AuthenticationService {
             }).catch((error:any) => Observable.throw(error || 'Server error'));
     }
 
-    signUp(user : User):any {
-
-       return this.apiRequest.post('/ibex/api/signup', user, "resource");
+    signUp(user : User): Observable<UserDetail> {
+        return this.apiRequest.post('/ibex/api/signup', user, "resource");
+        
 
 /*        const headers = new HttpHeaders({'Content-Type' : 'application/json'});
         if(user == null) { console.log(user)}

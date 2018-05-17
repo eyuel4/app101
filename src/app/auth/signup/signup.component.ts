@@ -8,6 +8,7 @@ import { HttpEventType } from '@angular/common/http'
 
 import { AuthenticationService } from '../authentication.service';
 import { User } from '../../shared/model/common/User.model';
+import { UserDetail } from "../../shared/model/common/UserDetail.model";
 
 
 
@@ -67,25 +68,32 @@ export class SignupComponent implements OnInit, OnDestroy {
         let user = new User();
         user = this.signupForm.value;
         console.log(user);
+    
         this.authSubscription = this.authService.signUp(user).subscribe(
-            (response) => {
-                if(response === "User Registered") {
-                    // Get User from UserService and Login User
-                    // Show User 
-                    this.loginSubscription = this.authService.login(user).subscribe(
-                        (response) => {
-                            if(response == true) {
-                                console.log("User Login Succesful");
-                                alert("User Login Succesful");
-                            }
-                        }
-                    );
+            (response : UserDetail) => {
+                console.log(response);
+                if(response.idUser !== null) {
+                    console.log(response.idUser);
                 }
+
+                // if(response === "User Registered") {
+                //     // Get User from UserService and Login User
+                //     // Show User 
+                //     this.loginSubscription = this.authService.login(user).subscribe(
+                //         (response) => {
+                //             if(response == true) {
+                //                 console.log("User Login Succesful");
+                //                 alert("User Login Succesful");
+                //             }
+                //         }
+                //     );
+                // }
                 console.log("User Regisetred");
             },
             (error : Error) => {
-                console.log(error);
+                console.log(error + " Error Occured");
             });
+        
         //.subscribe(result => { });
         console.log(this.authSubscription + "result")
     }

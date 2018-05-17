@@ -44,7 +44,7 @@ export class ApiRequestService {
     post(url: string, body:Object, serverType: string) : Observable<any> {
         let baseApiPath : string = this.getBaseApiPath(serverType);
         let me = this;
-        return this.http.put(baseApiPath + url, JSON.stringify(body), { headers:this.getHeaders()})
+        return this.http.post(baseApiPath + url, JSON.stringify(body), { headers:this.getHeaders()})
             .catch(function(error:any){
                 if (error.status === 401) {
                     console.log("Logging out");

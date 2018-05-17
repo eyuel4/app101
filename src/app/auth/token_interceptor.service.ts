@@ -10,7 +10,8 @@ import { AuthenticationService } from './authentication.service';
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
     private whiteList = [
-        'http://localhost:8081/ibextubeapp/oauth-server/oauth/token'
+        'http://localhost:8081/ibextubeapp/oauth-server/oauth/token',
+        'http://localhost:8082/ibexapp/oauth-resource/ibex/api/signup'
     ]
     constructor(public auth : AuthenticationService) {}
 
