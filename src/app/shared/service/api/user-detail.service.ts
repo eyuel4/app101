@@ -36,7 +36,9 @@ export class UserDetailService {
         //         }
         //     )
         //     if(this.isLoggedIn) {
-                this.apiRequest.get(`/ibex/api/user/:id`, "resource", params)
+            let url : string = '/ibex/api/user';
+            url = url + '/' +userId;
+                this.apiRequest.get(url, "resource", params)
                 .subscribe(
                     (jsonResp) => {
                         console.log("Response on getUserDetail from backend");

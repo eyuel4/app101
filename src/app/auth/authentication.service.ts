@@ -47,7 +47,10 @@ export class AuthenticationService {
     }
 
     signUp(user : User):any {
-        const headers = new HttpHeaders({'Content-Type' : 'application/json'});
+
+       return this.apiRequest.post('/ibex/api/signup', user, "resource");
+
+/*        const headers = new HttpHeaders({'Content-Type' : 'application/json'});
         if(user == null) { console.log(user)}
         if(user != null) {
             console.log("To be sent to server");
@@ -68,6 +71,7 @@ export class AuthenticationService {
             }).catch((error:any) => 
             Observable.throw(error || 'Server error'));
         }
+        */
     }
  
     getToken(): String {
