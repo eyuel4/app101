@@ -4,7 +4,8 @@ import { FormGroup , FormControl, Validators} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
 import { UploadService } from '../../shared/service/api/upload.service';
-import { HttpEventType } from '@angular/common/http'
+import { HttpEventType, HttpErrorResponse } from '@angular/common/http';
+
 
 import { AuthenticationService } from '../authentication.service';
 import { User } from '../../shared/model/common/User.model';
@@ -25,6 +26,7 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     currentFileUpload : File;
     selectedFiles : FileList;
+    userNameError : string = null;
 
     constructor(private authService : AuthenticationService,
                 private uploadService : UploadService) {}
@@ -90,8 +92,8 @@ export class SignupComponent implements OnInit, OnDestroy {
                 // }
                 console.log("User Regisetred");
             },
-            (error : Error) => {
-                console.log(error + " Error Occured");
+            (error : HttpErrorResponse) => {
+                this.userNameError = error.error;
             });
         
         //.subscribe(result => { });
@@ -106,6 +108,10 @@ export class SignupComponent implements OnInit, OnDestroy {
             }
             return null;
         }
+    }
+
+    invalidUserNameValidation(control: FormControl) : Promise<any> | Observable<any> {
+        
     }
     
     validateEmail(email : string) : boolean {
