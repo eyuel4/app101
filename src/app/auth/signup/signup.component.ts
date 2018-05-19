@@ -26,18 +26,20 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     currentFileUpload : File;
     selectedFiles : FileList;
-    userNameError : string = null;
+    serverSideValid : string = "No error";
 
     constructor(private authService : AuthenticationService,
                 private uploadService : UploadService) {}
 
     ngOnInit() {
         this.signupForm = new FormGroup({
-            'username' : new FormControl(null, [Validators.required, this.userNameValidation.bind(this)]),
+            'username' : new FormControl(null, [Validators.required, this.invalidUserNameValidation.bind(this)]),
             'firstName' : new FormControl(null),
             'lastName' : new FormControl(null),
             'password' : new FormControl(null)
+           // , this.userNameValidation.bind(this)
         });
+
     }
 
     ngOnDestroy() {
@@ -93,25 +95,31 @@ export class SignupComponent implements OnInit, OnDestroy {
                 console.log("User Regisetred");
             },
             (error : HttpErrorResponse) => {
-                this.userNameError = error.error;
+                this.serverSideValid = error.error;
+                console.log(this.serverSideValid);
+                console.log(this.signupForm);
             });
         
         //.subscribe(result => { });
         console.log(this.authSubscription + "result")
     }
 
-    userNameValidation(control: FormControl) : {[s: string] : boolean} {
-        var username : string = control.value;
-        if(username !== null) {
-            if(!(this.validatePhone(username) || this.validateEmail(username))) {
-                return { 'usernameIsValid' : false}
-            }
-            return null;
-        }
-    }
+    // userNameValidation(control: FormControl) : {[s: string] : boolean} {
+    //     var username : string = control.value;
+    //     if(username !== null) {
+    //         if(!(this.validatePhone(username) || this.validateEmail(username))) {
+    //             return { 'usernameIsValid' : false}
+    //         }
+    //         return null;
+    //     }
+    // }
 
-    invalidUserNameValidation(control: FormControl) : Promise<any> | Observable<any> {
-        
+    invalidUserNameValidation(control: FormControl) : {[s: string] : boolean} {
+        if (this.serverSideValid !== null) {
+            console.log(this.serverSideValid);
+            return {'usernameIsInvalid' : true};
+        }
+        return null;
     }
     
     validateEmail(email : string) : boolean {
