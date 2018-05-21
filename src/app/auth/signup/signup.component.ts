@@ -5,13 +5,15 @@ import {Subscription} from 'rxjs/Subscription';
 import {Observable} from 'rxjs/Observable';
 import { UploadService } from '../../shared/service/api/upload.service';
 import { HttpEventType, HttpErrorResponse } from '@angular/common/http';
-
+import { Router } from '@angular/router';
 
 import { AuthenticationService } from '../authentication.service';
 import { User } from '../../shared/model/common/User.model';
 import { UserDetail } from "../../shared/model/common/UserDetail.model";
-
-
+import { LoginService } from '../../shared/service/api/login.service';
+import { UserInfoService } from '../user_info.service';
+import { UserDetailService } from '../../shared/service/api/user-detail.service';
+import { mergeMap } from 'rxjs/operator/mergeMap';
 
 @Component ({
     selector:'app-signup',
@@ -27,9 +29,14 @@ export class SignupComponent implements OnInit, OnDestroy {
     currentFileUpload : File;
     selectedFiles : FileList;
     serverSideValid : string = "No error";
+    respUserDetail : UserDetail;
 
     constructor(private authService : AuthenticationService,
-                private uploadService : UploadService) {}
+                private uploadService : UploadService,
+                private loginService : LoginService,
+                private router : Router,
+                private userInfoService : UserInfoService,
+                private userDetailService : UserDetailService ) {}
 
     ngOnInit() {
         this.signupForm = new FormGroup({
@@ -72,34 +79,36 @@ export class SignupComponent implements OnInit, OnDestroy {
         let user = new User();
         user = this.signupForm.value;
         console.log(user);
-    
-        this.authSubscription = this.authService.signUp(user).subscribe(
+        
+        this.authSubscription = this.authService.signUp(user)
+        .subscribe(
             (response : UserDetail) => {
                 console.log(response);
-                if(response.idUser !== null) {
-                    console.log(response.idUser);
-                }
-
-                // if(response === "User Registered") {
-                //     // Get User from UserService and Login User
-                //     // Show User 
-                //     this.loginSubscription = this.authService.login(user).subscribe(
-                //         (response) => {
-                //             if(response == true) {
-                //                 console.log("User Login Succesful");
-                //                 alert("User Login Succesful");
-                //             }
-                //         }
-                //     );
-                // }
+                this.respUserDetail = response;
                 console.log("User Regisetred");
             },
             (error : HttpErrorResponse) => {
                 this.serverSideValid = error.error;
                 console.log(this.serverSideValid);
                 console.log(this.signupForm);
-            });
-        
+            },
+            () => {
+                if(this.respUserDetail.username !== null) {
+                    console.log(this.respUserDetail.username);
+                    this.loginService.getToken(this.respUserDetail.username, user.password)
+                    .subscribe(jsonResp => {
+                        if (jsonResp !== undefined && jsonResp !== null) {
+                            console.log("User Login Successful after signup!");
+                            console.log(jsonResp);
+                            this.userInfoService.isLoggedIn();
+                            this.userDetailService.getUserDetail(this.respUserDetail.idUser.toString());
+                            this.router.navigate(['/home']);
+                        }
+                    });
+                }
+            }
+        );
+
         //.subscribe(result => { });
         console.log(this.authSubscription + "result")
     }
@@ -115,9 +124,9 @@ export class SignupComponent implements OnInit, OnDestroy {
     // }
 
     invalidUserNameValidation(control: FormControl) : {[s: string] : boolean} {
-        if (this.serverSideValid !== null) {
+        if (this.serverSideValid !== 'No error') {
             console.log(this.serverSideValid);
-            return {'usernameIsInvalid' : true};
+            return {'usernameIsInvalid' : false};
         }
         return null;
     }

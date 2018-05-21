@@ -49,30 +49,6 @@ export class AuthenticationService {
 
     signUp(user : User): Observable<UserDetail> {
         return this.apiRequest.post('/ibex/api/signup', user, "resource");
-        
-
-/*        const headers = new HttpHeaders({'Content-Type' : 'application/json'});
-        if(user == null) { console.log(user)}
-        if(user != null) {
-            console.log("To be sent to server");
-            console.log(user);
-            console.log("Json Value");
-            console.log(JSON.stringify({user}));
-            return this.httpClient.post(this.signUpUrl, user, {headers: headers, responseType :'text'})
-            .map((response: string) => {
-                let savedUser = response;//.json();
-                console.log(savedUser + "User Saved");
-                if(savedUser != null) {
-                   // this.router.navigate(['/home']);
-                    return savedUser;
-                }
-                else {
-                    return null;
-                } 
-            }).catch((error:any) => 
-            Observable.throw(error || 'Server error'));
-        }
-        */
     }
  
     getToken(): String {

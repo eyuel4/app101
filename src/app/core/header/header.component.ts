@@ -1,3 +1,4 @@
+import {UserDetail} from '../../shared/model/common/UserDetail.model';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserInfoService } from "../../auth/user_info.service";
 import { Subscription } from 'rxjs/Subscription';
@@ -12,12 +13,14 @@ import { UserDetailService } from "../../shared/service/api/user-detail.service"
 })
 export class HeaderComponent implements OnInit, OnDestroy{
     isAuthenticated: boolean;
-    isLoggedIn : boolean;
+    isLoggedIn : boolean = false;
     isLoggedInSubscription : Subscription;
     userIdSubscription : Subscription;
     userDetailSubscription : Subscription;
     userNameDisplay : string;
+    userPic : string;
     userId : string;
+    currentUserDetail : UserDetail;
 
     constructor(private userInfoService : UserInfoService,
                 private loginService : LoginService,
@@ -41,25 +44,26 @@ export class HeaderComponent implements OnInit, OnDestroy{
             }
         );
 
+        this.userDetailService.currentUserDetail.subscribe(
+            (jsonResp : UserDetail) => {
+                this.currentUserDetail = jsonResp;
+                this.userNameDisplay = this.currentUserDetail.firstName + ' ' + this.currentUserDetail.lastName;
+                this.userPic = this.currentUserDetail.profilePic;
+            },
+            (error: Error) => {
+                console.log(error);
+            }, 
+            () => {
+                console.log("finished current user detail subscription");
+            }
+        )
+
        this.userIdSubscription = this.userInfoService.userIdSubject.subscribe(
             (userId : string) => {
                 this.userId = userId;
                 console.log(this.userId +"userId");
             }
         );
-
-        if(!this.isLoggedIn) {
-            this.userDetailSubscription = this.userDetailService.getUserDetail(this.userId).subscribe(
-                (user : string) => {
-                    this.userNameDisplay = "Hello World";
-                    console.log("Hello World from backend");
-                }
-            );
-        }
-
-        if(this.isLoggedIn) {
-            console.log("Is loggedIn");
-        }
 
     }
 

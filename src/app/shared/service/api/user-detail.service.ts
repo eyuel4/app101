@@ -1,3 +1,4 @@
+import {UserDetail} from '../../model/common/UserDetail.model';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs/Subject';
 import { HttpParams } from '@angular/common/http';
@@ -12,6 +13,7 @@ import { UserInfoService } from '../../../auth/user_info.service';
 @Injectable()
 export class UserDetailService {
     private isLoggedIn : boolean = false;
+    public currentUserDetail : Subject<UserDetail> = new Subject<UserDetail>();
 
     constructor(
         private apiRequest : ApiRequestService,
@@ -40,14 +42,13 @@ export class UserDetailService {
             url = url + '/' +userId;
                 this.apiRequest.get(url, "resource", params)
                 .subscribe(
-                    (jsonResp) => {
+                    (jsonResp : UserDetail) => {
                         console.log("Response on getUserDetail from backend");
-                        let user : string = null;
                         if (jsonResp !== undefined && jsonResp !== null) {
                             console.log("UserDetail JsonResponse is not null");
-                            user = null;
+                            console.log(jsonResp);
                         }
-                        userDetailSubject.next(user);
+                        userDetailSubject.next(jsonResp);
                     });
            // }
         return userDetailSubject;

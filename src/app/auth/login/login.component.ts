@@ -1,7 +1,9 @@
+import {UserDetail} from '../../shared/model/common/UserDetail.model';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
+import { Subject } from 'rxjs/Subject';
 
 import { AuthenticationService } from '../authentication.service';
 import { User } from '../../shared/model/common/User.model';
@@ -20,7 +22,6 @@ export class LoginComponent implements OnInit {
     loading = false;
     error = '';
     errMsg : string = '';
-    loginDataSubscription : Subscription;
 
     constructor(private authenticationService : AuthenticationService,
                 private loginService : LoginService,
@@ -80,9 +81,14 @@ export class LoginComponent implements OnInit {
                     }
                     console.log("User Login Successful!");
                     console.log(resp.user.userId);
-                    this.userInfoService.isLoggedIn();
+                    //this.userInfoService.isLoggedIn();
                    // this.userInfoService.getUserName();
-                    this.userDetailService.getUserDetail(resp.user.userId);
+                    this.userDetailService.getUserDetail(resp.user.userId)
+                        .subscribe(
+                            (resp: UserDetail) => {
+                                this.userDetailService.currentUserDetail.next(resp);
+                            }
+                        );
                     this.router.navigate([resp.landingPage]);
                 },
                 errResponse => {
