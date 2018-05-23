@@ -5,6 +5,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Base64 } from 'js-base64';
 import { Router } from '@angular/router';
 
+import { AppConfig } from  '../../../config/app.config';
 import { UserInfoService, LoginInfoInStorage } from '../../../auth/user_info.service';
 import { ApiRequestService } from './api-request.service';
 
@@ -32,7 +33,7 @@ export class LoginService {
         let loginDataSubject : BehaviorSubject<any> = new BehaviorSubject<any>([]);
         let loginInfoReturn : LoginInfoInStorage; // Object that we want to send back to Login page
 
-        this.apiRequest.postForToken('/oauth/token', bodyData, "authorization")
+        this.apiRequest.postForToken(AppConfig.api_endpoints.oauth_token, bodyData, AppConfig.server_type.authorization_server)
             .subscribe(jsonResp => {
                 if (jsonResp !== undefined && jsonResp !== null) {
                     console.log("JsonResponse is not null");

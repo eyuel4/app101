@@ -4,6 +4,7 @@ import { Subject } from 'rxjs/Subject';
 import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
+import { AppConfig } from  '../../../config/app.config';
 import { ApiRequestService } from './api-request.service';
 import { UserInfoService } from '../../../auth/user_info.service';
 /**
@@ -40,7 +41,7 @@ export class UserDetailService {
         //     if(this.isLoggedIn) {
             let url : string = '/ibex/api/user';
             url = url + '/' +userId;
-                this.apiRequest.get(url, "resource", params)
+                this.apiRequest.get(url, AppConfig.server_type.resource_server, params)
                 .subscribe(
                     (jsonResp : UserDetail) => {
                         console.log("Response on getUserDetail from backend");

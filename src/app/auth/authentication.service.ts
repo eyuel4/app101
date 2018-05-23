@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import { Base64 } from 'js-base64';
 import { Subject } from 'rxjs/Subject';
 
+import { AppConfig } from  '../config/app.config';
 import { User } from '../shared/model/common/User.model';
 import { ApiRequestService } from "../shared/service/api/api-request.service";
 import { UserDetail } from "../shared/model/common/UserDetail.model";
@@ -48,7 +49,7 @@ export class AuthenticationService {
     }
 
     signUp(user : User): Observable<UserDetail> {
-        return this.apiRequest.post('/ibex/api/signup', user, "resource");
+        return this.apiRequest.post('/ibex/api/signup', user, AppConfig.server_type.resource_server);
     }
  
     getToken(): String {

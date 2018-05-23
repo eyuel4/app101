@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient , HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AppConfig } from "../../../config/app-config";
-import { UserInfoService } from '../../../auth/user_info.service';
 import { Router } from '@angular/router';
-import { User } from '../../model/common/User.model';
 import { Base64 } from 'js-base64';
+
+//import { AppConfig } from "../../../config/app-config";
+import { AppConfig } from '../../../config/app.config'
+import { UserInfoService } from '../../../auth/user_info.service';
+import { User } from '../../model/common/User.model';
 import {LoginRequestParam} from './login.service';
 
 @Injectable()
 export class ApiRequestService {
 
-    constructor(private appConfig : AppConfig,private http: HttpClient,
+    constructor(private http: HttpClient,
                 private router : Router, private userInfoService : UserInfoService) {}
 
     /**
@@ -22,7 +24,7 @@ export class ApiRequestService {
         let token = this.userInfoService.getStoredToken();
         headers = headers.append('Content-Type', 'application/json');
         if (token !== null) {
-            headers = headers.append("Authorization", token);
+            headers = headers.append(AppConfig.server_type.authorization_server, token);
         }
         return headers;
     }
@@ -95,14 +97,14 @@ export class ApiRequestService {
     getBaseApiPath(serverType : string) : string {
         let baseApiPath : string;
 
-        if(serverType === "authorization") {
-            baseApiPath = this.appConfig.baseApiPathAuthServer;
+        if(serverType === AppConfig.server_type.authorization_server) {
+            baseApiPath = AppConfig.api_server_path.baseApiPathAuthServer;
         }
-        else if (serverType === "resource") {
-            baseApiPath = this.appConfig.baseApiPathResourceServe;   
+        else if (serverType === AppConfig.server_type.resource_server) {
+            baseApiPath = AppConfig.api_server_path.baseApiPathResourceServe;   
         }
         else {
-            baseApiPath = this.appConfig.baseApiPathUIServer;
+            baseApiPath = AppConfig.api_server_path.baseApiPathUIServer;
         }
 
         return baseApiPath;
