@@ -31,10 +31,14 @@ export class ApiRequestService {
 
     get(url:string, serverType: string, urlParams?: HttpParams) : Observable<any> {
         let baseApiPath : string = this.getBaseApiPath(serverType);
+        console.log(baseApiPath);
+        console.log(url);
+        console.log(baseApiPath + url);
         let me  = this;
         return this.http.get(baseApiPath + url, {headers : this.getHeaders(), params:urlParams} )
             .catch(function(error : any) {
                 console.log("Some error in catch");
+                console.log(error);
                 if (error.status === 401 || error.status === 403) {
                     console.log("Logging out1");
                     me.router.navigate(['/logout']);
@@ -96,15 +100,19 @@ export class ApiRequestService {
 
     getBaseApiPath(serverType : string) : string {
         let baseApiPath : string;
+        console.log(serverType +' server type');
 
         if(serverType === AppConfig.server_type.authorization_server) {
-            baseApiPath = AppConfig.api_server_path.baseApiPathAuthServer;
+            baseApiPath = AppConfig.api_server_path.baseApi_AuthServer;
+            console.log(baseApiPath);
         }
         else if (serverType === AppConfig.server_type.resource_server) {
-            baseApiPath = AppConfig.api_server_path.baseApiPathResourceServe;   
+            baseApiPath = AppConfig.api_server_path.baseApiPathResourceServer;  
+            console.log(baseApiPath); 
         }
         else {
             baseApiPath = AppConfig.api_server_path.baseApiPathUIServer;
+            console.log(baseApiPath);
         }
 
         return baseApiPath;

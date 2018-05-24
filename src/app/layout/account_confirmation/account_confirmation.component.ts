@@ -22,11 +22,14 @@ export class AccountConfirmationComponent implements OnInit {
             (params) => {
                 this.confirmationToken = params.token;
                 console.log(this.confirmationToken);
+                this.confirmAccount(this.confirmationToken);
         })
     }
 
-    confirmAccount() {
-        this.apiRequest.post(AppConfig.api_endpoints.confirm_account, this.confirmationToken, AppConfig.server_type.resource_server)
+    confirmAccount(token : string) {
+        let url : string = AppConfig.api_endpoints.confirm_account +"/"+token;
+        console.log(url + "End Url");
+        this.apiRequest.get(url,AppConfig.server_type.resource_server)
             .subscribe(
                 (jsonResp) => {
                     console.log(jsonResp);
