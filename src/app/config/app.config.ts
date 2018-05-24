@@ -8,9 +8,9 @@ export const AppConfig: IAppConfig = {
         movies: 'movies',
         confirm: 'confirm'
     },
-    router_endpoints: {
-
-
+    navigation_endpoints: {
+        home : '/home',
+        logout : '/logout'
     },
     api_endpoints: {
         confirm_account: '/ibex/api/registeration/confirm',
@@ -24,5 +24,15 @@ export const AppConfig: IAppConfig = {
          baseApi_AuthServer: 'http://localhost:8081/ibextubeapp/oauth-server',
          baseApiPathResourceServer: 'http://localhost:8082/ibexapp/oauth-resource',
          baseApiPathUIServer: 'http://localhost:4200'
+    },
+    oauth_info: {
+        clientId: 'fooClientIdPassword',
+        clientPassword: 'secret'
+    },
+    message_type : {
+        message_info: 'info',
+        message_error: 'error',
+        message_success: 'success',
+        message_warning: 'warning'
     }
 }

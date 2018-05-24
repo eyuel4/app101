@@ -14,6 +14,7 @@ import { LoginService } from '../../shared/service/api/login.service';
 import { UserInfoService } from '../user_info.service';
 import { UserDetailService } from '../../shared/service/api/user-detail.service';
 import { mergeMap } from 'rxjs/operator/mergeMap';
+import { AppConfig } from '../../config/app.config';
 
 @Component ({
     selector:'app-signup',
@@ -102,7 +103,7 @@ export class SignupComponent implements OnInit, OnDestroy {
                             console.log(jsonResp);
                             this.userInfoService.isLoggedIn();
                             this.userDetailService.getUserDetail(this.respUserDetail.idUser.toString());
-                            this.router.navigate(['/home']);
+                            this.router.navigate([AppConfig.navigation_endpoints.home]);
                         }
                     });
                 }

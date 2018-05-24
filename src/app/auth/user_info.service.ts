@@ -3,7 +3,7 @@ import { Subject } from 'rxjs/Subject';
 
 export interface UserInStorage {
     userId : string;
-   // email : string;
+    email : string;
     displayName : string;
     token : string;
 }

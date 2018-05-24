@@ -1,0 +1,13 @@
+<div class="alert alert-success alert-autoclosable-success" *ngIf='message && respMessage.message_type === "success" '>
+        {{ message }}
+</div>
+
+<div class="alert alert-warning alert-autocloseable-warning" *ngIf='message && respMessage.message_type === "warning"'>
+            {{ message }}
+</div>
+<div class="alert alert-danger alert-autocloseable-danger" *ngIf='message && respMessage.message_type === "error"'>
+                {{ message }}
+</div>
+<div class="alert alert-info alert-autocloseable-info" *ngIf='message && respMessage.message_type === "info"'>
+                {{ message }}
+</div>

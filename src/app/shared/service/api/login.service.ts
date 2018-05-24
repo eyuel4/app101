@@ -37,14 +37,15 @@ export class LoginService {
             .subscribe(jsonResp => {
                 if (jsonResp !== undefined && jsonResp !== null) {
                     console.log("JsonResponse is not null");
+                    console.log(jsonResp.user);
                     // Create a success object that we want to send back to login page
                     loginInfoReturn = {
                         "success" : true,
                         "message" : jsonResp.operationMessage,
                         "landingPage" : this.landingPage,
                         "user" : {
-                            "userId" : jsonResp.user.username,
-                            //"email" : jsonResp.item.emailAddress,
+                            "userId" : jsonResp.userId,
+                            "email" : jsonResp.email,
                             "displayName" : jsonResp.user.username,
                             "token" : jsonResp.access_token,
                         }
@@ -96,7 +97,7 @@ export class LoginService {
         // clear token remove user from local storage to log user out
         this.userInfoService.removeUserInfo();
         if (navigatetoLogout) {
-            this.router.navigate(["logout"]);
+            this.router.navigate([AppConfig.navigation_endpoints.logout]);
         }
     } 
 }

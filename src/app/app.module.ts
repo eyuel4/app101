@@ -19,11 +19,13 @@ import { UploadService } from './shared/service/api/upload.service';
 import { AppConfig } from './config/app-config';
 import { TokenInterceptor } from './auth/token_interceptor.service';
 import { UserDetailService } from './shared/service/api/user-detail.service';
-
+import { MessageService } from './shared/service/api/message.service';
+import { MessageNotificationComponent } from './core/message_notification/message_notification.component'; 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MessageNotificationComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,7 @@ import { UserDetailService } from './shared/service/api/user-detail.service';
   ],
   providers: [ AuthenticationService, MoviesService, UserInfoService, 
                ApiRequestService, LoginService, AppConfig, UploadService,
-               UserDetailService,
+               UserDetailService, MessageService,
                 {
                  provide: HTTP_INTERCEPTORS,
                  useClass: TokenInterceptor,

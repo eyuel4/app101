@@ -10,6 +10,7 @@ import { User } from '../../shared/model/common/User.model';
 import { LoginService } from "../../shared/service/api/login.service";
 import { UserInfoService } from "../user_info.service";
 import { UserDetailService } from "../../shared/service/api/user-detail.service";
+import { AppConfig } from '../../config/app.config';
 
 @Component({
     selector: 'app-login',
@@ -34,7 +35,7 @@ export class LoginComponent implements OnInit {
         if (this.userInfoService.isLoggedIn()) {
             //this.userInfoService.getUserName();
             console.log("Login Login");
-            this.router.navigate(["/home"]);
+            this.router.navigate([AppConfig.navigation_endpoints.home]);
         }
         this.loginForm = new FormGroup({
             'username': new FormControl(null, [Validators.required]),

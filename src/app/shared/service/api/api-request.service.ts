@@ -9,12 +9,16 @@ import { AppConfig } from '../../../config/app.config'
 import { UserInfoService } from '../../../auth/user_info.service';
 import { User } from '../../model/common/User.model';
 import {LoginRequestParam} from './login.service';
+import { MessageService } from '../api/message.service';
+import { ResponseMessage } from '../../http_entities/response_message.model';
 
 @Injectable()
 export class ApiRequestService {
 
     constructor(private http: HttpClient,
-                private router : Router, private userInfoService : UserInfoService) {}
+                private router : Router, 
+                private userInfoService : UserInfoService,
+                private messageService : MessageService) {}
 
     /**
      * This is a Global place to add all the request headers for every REST calls
@@ -41,7 +45,7 @@ export class ApiRequestService {
                 console.log(error);
                 if (error.status === 401 || error.status === 403) {
                     console.log("Logging out1");
-                    me.router.navigate(['/logout']);
+                    me.router.navigate([AppConfig.navigation_endpoints.logout]);
                 }
                 return Observable.throw(error || 'Server error')
             });
@@ -54,7 +58,7 @@ export class ApiRequestService {
             .catch(function(error:any){
                 if (error.status === 401) {
                     console.log("Logging out");
-                    me.router.navigate(['/logout']);
+                    me.router.navigate([AppConfig.navigation_endpoints.logout]);
                 }
                 return Observable.throw(error || 'Server error')
             });
@@ -70,8 +74,9 @@ export class ApiRequestService {
         // myHeader.append('Authorization', 'Basic ' + btoa('fooClientIdPassword:secret'));
         const myHeader = new HttpHeaders({
             'Content-Type' : 'application/json; charset=utf-8',
-            'Authorization' : 'Basic ' + Base64.encode('fooClientIdPassword:secret')
+            'Authorization' : 'Basic ' + Base64.encode(AppConfig.oauth_info.clientId+':'+AppConfig.oauth_info.clientPassword)
         });
+
         let params = new HttpParams()
                      .set('username',body.username)
                      .set('password',body.password)
@@ -80,7 +85,7 @@ export class ApiRequestService {
         return this.http.post(baseApiPath + url, null, { headers: myHeader, params: params})
             .catch(function(error:any){
                 if (error.status === 401) {
-                    me.router.navigate(['/logout']);
+                    me.router.navigate([AppConfig.navigation_endpoints.logout]);
                 }
                 return Observable.throw(error || 'Server error')
             });
@@ -92,7 +97,7 @@ export class ApiRequestService {
         return this.http.delete(baseApiPath + url, { headers:this.getHeaders()})
             .catch(function(error:any){
                 if (error.status === 401) {
-                    me.router.navigate(['/logout']);
+                    me.router.navigate([AppConfig.navigation_endpoints.logout]);
                 }
                 return Observable.throw(error || 'Server error')
             });
