@@ -81,9 +81,11 @@ export class ApiRequestService {
                      .set('username',body.username)
                      .set('password',body.password)
                      .set('grant_type','password');
-        console.log("Request out :" +baseApiPath + url);             
+        console.log("Request out :" +baseApiPath + url);   
+        console.log(params);          
         return this.http.post(baseApiPath + url, null, { headers: myHeader, params: params})
             .catch(function(error:any){
+                console.log(error);
                 if (error.status === 401) {
                     me.router.navigate([AppConfig.navigation_endpoints.logout]);
                 }
