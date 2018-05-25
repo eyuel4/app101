@@ -64,13 +64,20 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     upload() {
         this.currentFileUpload = this.selectedFiles.item(0);
-        this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
+        console.log(this.currentFileUpload.webkitRelativePath);
+
+        this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(
+            (event) => {
             if (event.type === HttpEventType.UploadProgress) {
                 console.log('Upload Progress: ' + Math.round(event.loaded /event.total) * 100 + '%');
             } else if (event.type === HttpEventType.Response) {
                 console.log(event);
             }
-        });
+        },
+        (error : Error) => {
+            console.log(error);
+        }
+    );
 
         this.selectedFiles = undefined;
     }
@@ -148,6 +155,17 @@ export class SignupComponent implements OnInit, OnDestroy {
                 return true;
             } 
             return true;
+        }
+    }
+localUrl: any;
+    showPreviewImage(event: any) {
+        if (event.target.files && event.target.files[0]) {
+            var reader = new FileReader();
+            reader.onload = (event: any) => {
+                this.localUrl = event.target.result;
+                console.log(this.localUrl);
+            }
+            reader.readAsDataURL(event.target.files[0]);
         }
     }
 }

@@ -12,7 +12,8 @@ export class TokenInterceptor implements HttpInterceptor {
     private whiteList = [
         'http://localhost:8081/ibextubeapp/oauth-server/oauth/token',
         'http://localhost:8082/ibexapp/oauth-resource/ibex/api/signup',
-        'http://localhost:8082/ibexapp/oauth-resource/ibex/api/registeration/confirm/**'
+        'http://localhost:8082/ibexapp/oauth-resource/ibex/api/registeration/confirm/**',
+        'http://localhost:8082/ibexapp/oauth-resource/ibex/api/user/profile/upload'
     ]
     constructor(public auth : AuthenticationService) {}
 
@@ -20,6 +21,7 @@ export class TokenInterceptor implements HttpInterceptor {
         // If request is not in whitlist add header
         if (!this.whiteList.includes(request.url)) {
             console.log("I was not here");
+            console.log(request.url);
             request = request.clone({
                 setHeaders: {
                     Authorization: `Bearer ${this.auth.getToken()}`
