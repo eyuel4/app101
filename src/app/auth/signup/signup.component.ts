@@ -60,6 +60,14 @@ export class SignupComponent implements OnInit, OnDestroy {
 
     selectFile(event) {
         this.selectedFiles = event.target.files;
+        if (event.target.files && event.target.files[0]) {
+            var reader = new FileReader();
+            reader.onload = (event: any) => {
+                this.localUrl = event.target.result;
+                console.log(this.localUrl);
+            }
+            reader.readAsDataURL(event.target.files[0]);
+        }
     }
 
     upload() {
@@ -88,6 +96,8 @@ export class SignupComponent implements OnInit, OnDestroy {
         user = this.signupForm.value;
         console.log(user);
         
+        this.upload();
+
         this.authSubscription = this.authService.signUp(user)
         .subscribe(
             (response : UserDetail) => {
@@ -161,8 +171,10 @@ localUrl: any;
     showPreviewImage(event: any) {
         if (event.target.files && event.target.files[0]) {
             var reader = new FileReader();
+            this.selectFile(event);
             reader.onload = (event: any) => {
                 this.localUrl = event.target.result;
+                this.selectedFiles = event.target.files;
                 console.log(this.localUrl);
             }
             reader.readAsDataURL(event.target.files[0]);

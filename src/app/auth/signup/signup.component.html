@@ -39,8 +39,9 @@
                     <div class="form-group">
                         <label for="photo">Photo</label>
                         <!-- (change)="selectFile($event)" -->
+                        <!-- (change)="showPreviewImage($event)" -->
                         <input type="file" 
-                            (change)="showPreviewImage($event)">
+                            (change)="selectFile($event)">
                         <button 
                             [disabled]="!selectedFiles"
                             (click)="upload()">Upload</button>

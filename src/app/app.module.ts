@@ -20,12 +20,14 @@ import { AppConfig } from './config/app-config';
 import { TokenInterceptor } from './auth/token_interceptor.service';
 import { UserDetailService } from './shared/service/api/user-detail.service';
 import { MessageService } from './shared/service/api/message.service';
-import { MessageNotificationComponent } from './core/message_notification/message_notification.component'; 
+import { MessageNotificationComponent } from './core/message_notification/message_notification.component';
+import { AutoCloseAlertDirective } from './directive/auto-close-alert.directive'; 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MessageNotificationComponent
+    MessageNotificationComponent,
+    AutoCloseAlertDirective
   ],
   imports: [
     BrowserModule,
