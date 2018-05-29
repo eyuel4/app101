@@ -1,59 +1,100 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
-            <div class="card-header">
-                <h3 class="mb-0">Sign Up</h3>
-            </div>
-            <div class="card-body">
-                <form class="form" role="form" autocomplete="off" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-                    <div class="form-group">
-                        <label for="userName">Email or Phone Number</label>
-                        <input 
-                            type="text" class="form-control"
-                            id="inputUName" placeholder="User Name"
-                            formControlName="username">
-                            <!-- <span class="help-block" *ngIf="signupForm.get('username').errors['usernameIsInvalid']">UserName or Phone is invalid</span> -->
-                        <!--"signupForm.get('username').errors['usernameIsInvalid']"-->
+        <div class="col-sm-6 col-md-4 col-lg-6 col-md-offset-6 sign_card">
+            <div class="card">
+                <div class="card-header">
+                    <img [src]="profile_pic" class="rounded-circle img-thumbnail">
+                </div>
+                <div class="card-body">
+                    <div class="signup-form">
+                        <form class="form" role="form" autocomplete="off" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+                            <div class="form-group row">
+                                <label for="userName" class="col-lg-3 col-form-label form-control-label">User Name</label>
+                                <div class="col-lg-9">
+                                    <input 
+                                        type="text" class="form-control col-lg-10"
+                                        id="inputUName" placeholder="User Name"
+                                        formControlName="username">
+                                </div>
+                                <!-- <span class="help-block" *ngIf="signupForm.get('username').errors['usernameIsInvalid']">UserName or Phone is invalid</span> -->
+                                <!--"signupForm.get('username').errors['usernameIsInvalid']"-->
+                            </div>
+            
+                            <div class="form-group row">
+                                <label for="phoneNo" class="col-lg-3 col-form-label form-control-label">Phone</label>
+                                <div class="col-lg-9">
+                                    <input 
+                                        type="text" class="form-control col-lg-10"
+                                        id="phoneNo" placeholder="Phone No"
+                                        formControlName="phoneNo">
+                                </div>
+                                <!-- <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <select>
+                                            <option><img src="http://rs775.pbsrc.com/albums/yy35/PhoenyxStar/link-1.jpg~c200"></option>
+                                            <option><img src="http://rs775.pbsrc.com/albums/yy35/PhoenyxStar/link-1.jpg~c200" height="15" width="15" border="0"align="center"> ETH</option>
+                                            <option>Test 3</option>
+                                        </select>
+                                    </div>
+                                    <input
+                                        type="text" class="form-control col-lg-5"
+                                        id="phoneNo" placeholder="Phone No"
+                                        formControlName="phoneNo">
+                                </div> -->
+                            </div>
+            
+                            <div class="form-group row">
+                                <label for="fullName" class="col-lg-3 col-form-label form-control-label">Full Name</label>
+                                <div class="col-lg-9">
+                                    <input 
+                                        type="text" class="form-control col-lg-10" 
+                                        id="inputFName" placeholder="Full Name"
+                                        formControlName="fullName">
+                                </div>
+            
+                            </div>
+                            <!-- <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input 
+                                    type="text" class="form-control" 
+                                    id="inputLName" placeholder="Last Name"
+                                    formControlName="lastName">
+                            </div> -->
+                            <div class="form-group row">
+                                <label for="password" class="col-lg-3 col-form-label form-control-label">Password</label>
+                                <div class="col-lg-9">
+                                    <input 
+                                        type="password" class="form-control col-lg-10"
+                                        id="inputPassword" placeholder="Password"
+                                        formControlName="password">
+                                </div>
+                            </div>
+            
+                            <div class="form-group row">
+                                <label for="photo" class="col-lg-3 col-form-label form-control-label">Photo</label>
+                                <!-- (change)="selectFile($event)" -->
+                                <!-- (change)="showPreviewImage($event)" -->
+                                <div class="col-lg-9">
+                                    <input type="file" class="form-control col-lg-10"
+                                        (change)="selectFile($event)">
+                                </div>
+    
+                                <!-- <button 
+                                    [disabled]="!selectedFiles"
+                                    (click)="upload()">Upload</button> -->
+                            </div>
+                            <div class="form-group signup_btn">
+                                <button type="submit" class="btn btn-success bt-lg" >Sign up</button>
+                            </div>
+                            <!-- <div>
+                                <img [src]="localUrl" *ngIf="localUrl">
+                            </div> -->
+                        </form>
                     </div>
-                    <div class="form-group">
-                        <label for="firstName">First Name</label>
-                        <input 
-                            type="text" class="form-control" 
-                            id="inputFName" placeholder="First Name"
-                            formControlName="firstName">
-                    </div>
-                    <div class="form-group">
-                        <label for="lastName">Last Name</label>
-                        <input 
-                            type="text" class="form-control" 
-                            id="inputLName" placeholder="Last Name"
-                            formControlName="lastName">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input 
-                            type="password" class="form-control"
-                            id="inputPassword" placeholder="Password"
-                            formControlName="password">
-                    </div>
-                    <div class="form-group">
-                        <label for="photo">Photo</label>
-                        <!-- (change)="selectFile($event)" -->
-                        <!-- (change)="showPreviewImage($event)" -->
-                        <input type="file" 
-                            (change)="selectFile($event)">
-                        <button 
-                            [disabled]="!selectedFiles"
-                            (click)="upload()">Upload</button>
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-success bt-lg" >Sign up</button>
-                    </div>
-                    <div>
-                        <img [src]="localUrl" *ngIf="localUrl">
-                    </div>
+                </div>
+                <div class="card-footer text-muted">
 
-                </form>
+                </div>
             </div>
         </div>
     </div>

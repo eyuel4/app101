@@ -32,6 +32,8 @@ export class SignupComponent implements OnInit, OnDestroy {
     serverSideValid : string = "No error";
     respUserDetail : UserDetail;
 
+    profile_pic : string;
+
     constructor(private authService : AuthenticationService,
                 private uploadService : UploadService,
                 private loginService : LoginService,
@@ -42,11 +44,13 @@ export class SignupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.signupForm = new FormGroup({
             'username' : new FormControl(null, [Validators.required, this.invalidUserNameValidation.bind(this)]),
-            'firstName' : new FormControl(null),
+            'phoneNo' : new FormControl(null),
+            'fullName' : new FormControl(null),
             'lastName' : new FormControl(null),
             'password' : new FormControl(null)
            // , this.userNameValidation.bind(this)
         });
+        this.profile_pic = "/assets/user_icon.png";
 
     }
 
@@ -64,6 +68,7 @@ export class SignupComponent implements OnInit, OnDestroy {
             var reader = new FileReader();
             reader.onload = (event: any) => {
                 this.localUrl = event.target.result;
+                this.profile_pic = event.target.result;
                 console.log(this.localUrl);
             }
             reader.readAsDataURL(event.target.files[0]);
@@ -175,6 +180,7 @@ localUrl: any;
             reader.onload = (event: any) => {
                 this.localUrl = event.target.result;
                 this.selectedFiles = event.target.files;
+                this.profile_pic = event.target.result;
                 console.log(this.localUrl);
             }
             reader.readAsDataURL(event.target.files[0]);
