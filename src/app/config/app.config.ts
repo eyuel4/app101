@@ -6,7 +6,8 @@ export const AppConfig: IAppConfig = {
         signup: 'signup',
         login: 'login',
         movies: 'movies',
-        confirm: 'confirm'
+        confirm: 'confirm',
+        update_profile: 'update-profile'
     },
     navigation_endpoints: {
         home : '/home',

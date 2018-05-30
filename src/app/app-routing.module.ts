@@ -9,7 +9,8 @@ const appRoutes : Routes = [
     { path: AppConfig.routes.home , component: HomeComponent },
     { path: AppConfig.routes.login , loadChildren: './auth/login/login.module#LoginModule'},
     { path: 'signup' , loadChildren: './auth/signup/signup.module#SignupModule'},
-    { path: AppConfig.routes.movies, loadChildren: './movies/movie.module#MovieModule'}
+    { path: AppConfig.routes.movies, loadChildren: './movies/movie.module#MovieModule'},
+    { path: AppConfig.routes.update_profile, loadChildren: './layout/update_profile/update_profile.module#UpdateProfileModule'}
 ] 
 
 @NgModule({

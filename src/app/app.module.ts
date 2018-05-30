@@ -22,6 +22,7 @@ import { UserDetailService } from './shared/service/api/user-detail.service';
 import { MessageService } from './shared/service/api/message.service';
 import { MessageNotificationComponent } from './core/message_notification/message_notification.component';
 import { AutoCloseAlertDirective } from './directive/auto-close-alert.directive'; 
+import { UpdateProfileModule } from './layout/update_profile/update_profile.module';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AutoCloseAlertDirective } from './directive/auto-close-alert.directive'
     RouterModule,
     AppRoutingModule,
     SharedModule,
-    MovieModule
+    MovieModule,
+    UpdateProfileModule
   ],
   providers: [ AuthenticationService, MoviesService, UserInfoService, 
                ApiRequestService, LoginService, AppConfig, UploadService,
