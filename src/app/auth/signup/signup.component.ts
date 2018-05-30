@@ -44,10 +44,10 @@ export class SignupComponent implements OnInit, OnDestroy {
     ngOnInit() {
         this.signupForm = new FormGroup({
             'username' : new FormControl(null, [Validators.required, this.invalidUserNameValidation.bind(this)]),
-            'phoneNo' : new FormControl(null),
-            'fullName' : new FormControl(null),
+            'firstName' : new FormControl(null),
             'lastName' : new FormControl(null),
-            'password' : new FormControl(null)
+            'password' : new FormControl(null),
+            'photo' : new FormControl(null)
            // , this.userNameValidation.bind(this)
         });
         this.profile_pic = "/assets/user_icon.png";
