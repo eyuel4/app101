@@ -1,1 +1,84 @@
-<h4>Update Profile</h4>
+<div class="container">
+    <div class="row password-page" *ngIf="selectedPage === 'password-page' ">
+        <div class="col-sm-6 col-md-4 col-lg-6">
+            <div class="card">
+                <div class="card-header">
+                        <img [src]="profile_pic" class="rounded-circle img-thumbnail">
+                </div>
+                <div class="card-body">
+                    <div>
+                        <form class="form" role="form" autocomplete="off" [formGroup]="passwordForm" (ngSubmit)="onChangePassword()">
+                            <div class="form-group row">
+                                <label for ="oldPassword">Old Password</label>
+                                <div class="col-lg-9">
+                                    <input
+                                        type="password" class="form-control"
+                                        id="oldPassword" placeholder="Old Password"
+                                        formControlName="oldPassword">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for ="oldPassword">New Password</label>
+                                <div class="col-lg-9">
+                                    <input
+                                        type="password" class="form-control"
+                                        id="newPassword" placeholder="New Password"
+                                        formControlName="newPassword">
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label for ="oldPassword">Confirm Password</label>
+                                <div class="col-lg-9">
+                                    <input
+                                        type="password" class="form-control"
+                                        id="confirmPassword" placeholder="Confirm Password"
+                                        formControlName="confirmPassword">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-succss bt-lg">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row prof-pic-page" *ngIf="selectedPage === 'profile-page' ">
+            <div class="col-sm-6 col-md-4 col-lg-6">
+                    <div class="card">
+                        <div class="card-header">
+                                <img [src]="profile_pic" class="rounded-circle img-thumbnail">
+                        </div>
+                        <div class="card-body">
+                            <div>
+                                <form class="form" role="form" autocomplete="off" [formGroup]="profileForm" (ngSubmit)="onChangeProfile()">
+                                    <div class="form-group row">
+                                        <label for="photo" class="col-lg-3 col-form-label form-control-label">Photo</label>
+                                            <!-- (change)="selectFile($event)" -->
+                                            <!-- (change)="showPreviewImage($event)" -->
+                                        <div class="col-lg-9">
+                                            <input type="file" class="form-control col-lg-10"
+                                                formControlName="photo"
+                                                (change)="selectFile($event)">
+                                        </div>
+                
+                                        <!-- <button 
+                                            [disabled]="!selectedFiles"
+                                            (click)="upload()">Upload</button> -->
+                                    </div>
+    
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-succss bt-lg">Update</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+    </div>
+</div>
