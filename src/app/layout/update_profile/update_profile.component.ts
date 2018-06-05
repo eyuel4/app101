@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl} from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-update-profile',
@@ -8,16 +9,24 @@ import { FormGroup, FormControl} from '@angular/forms';
 })
 export class UpdateProfileComponent implements OnInit {
 
-    profile_section : string = 'profile-page';
-    password_section : string = 'password-page';
+    profile_section : string = 'profile';
+    password_section : string = 'password';
 
-    selectedPage : string = null;
+    selectedPage : string = this.profile_section;
     passwordForm : FormGroup;
     profileForm : FormGroup;
 
+    constructor(private route : ActivatedRoute) {}
+
 
     ngOnInit(): void {
-        this.selectedPage = this.profile_section;
+        this.route.params.subscribe(
+            (params) => {
+                this.selectedPage = params['endpoint'];
+                console.log(params['endpoint']);
+            }
+        )
+        // this.selectedPage = this.profile_section;
         this.passwordForm = new FormGroup({
             'oldPassword' : new FormControl(null),
             'newPassword' : new FormControl(null),

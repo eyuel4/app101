@@ -39,7 +39,8 @@ export class UserDetailService {
         //         }
         //     )
         //     if(this.isLoggedIn) {
-            let url : string = '/ibex/api/user';
+            let url : string  = AppConfig.api_endpoints.get_user_detail;
+            // let url : string = '/ibex/api/user';
             url = url + '/' +userId;
                 this.apiRequest.get(url, AppConfig.server_type.resource_server, params)
                 .subscribe(

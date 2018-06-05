@@ -4,7 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { UpdateProfileComponent } from './update_profile.component';
 
 const profileRoutes : Routes = [
-    {path:'', component: UpdateProfileComponent }
+    { path: '', redirectTo: 'edit', pathMatch: 'full' },
+    { path: 'edit/:endpoint', component: UpdateProfileComponent },
 ]
 
 @NgModule({

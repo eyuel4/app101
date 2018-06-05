@@ -7,7 +7,7 @@ export const AppConfig: IAppConfig = {
         login: 'login',
         movies: 'movies',
         confirm: 'confirm',
-        update_profile: 'update-profile'
+        update_profile: 'profile'
     },
     navigation_endpoints: {
         home : '/home',
@@ -15,7 +15,8 @@ export const AppConfig: IAppConfig = {
     },
     api_endpoints: {
         confirm_account: '/ibex/api/registeration/confirm',
-        oauth_token: '/oauth/token'
+        oauth_token: '/oauth/token',
+        get_user_detail : '/ibex/api/user'
     },
     server_type: {
         resource_server: 'resource',
