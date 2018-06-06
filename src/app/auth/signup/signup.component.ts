@@ -101,7 +101,9 @@ export class SignupComponent implements OnInit, OnDestroy {
         user = this.signupForm.value;
         console.log(user);
         
-        this.upload();
+        if (this.currentFileUpload !== undefined) {
+            this.upload();
+        }
 
         this.authSubscription = this.authService.signUp(user)
         .subscribe(

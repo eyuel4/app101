@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl} from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { UserInfoService } from '../../auth/user_info.service';
+import { AppConfig } from '../../config/app.config';
 
 @Component({
     selector: 'app-update-profile',
@@ -16,10 +19,30 @@ export class UpdateProfileComponent implements OnInit {
     passwordForm : FormGroup;
     profileForm : FormGroup;
 
-    constructor(private route : ActivatedRoute) {}
+    constructor(private route : ActivatedRoute,
+                private router : Router,
+                private userInfoService : UserInfoService) {}
 
 
     ngOnInit(): void {
+        console.log("Wasup")
+        
+
+        this.userInfoService.isLoggedInSubject.subscribe(
+            (result: boolean) => {
+                console.log(result);
+                if (!result) {
+                    this.router.navigate([AppConfig.navigation_endpoints.home]);
+                }
+            }
+        )
+
+        if (!this.userInfoService.isLoggedIn()) {
+            this.router.navigate([AppConfig.navigation_endpoints.home]);
+        }
+        //this.userInfoService.isLoggedIn();
+
+
         this.route.params.subscribe(
             (params) => {
                 this.selectedPage = params['endpoint'];
