@@ -4,6 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { UserInfoService } from '../../auth/user_info.service';
 import { AppConfig } from '../../config/app.config';
+import { UserDetailService } from '../../shared/service/api/user-detail.service';
+import { MessageService } from '../../shared/service/api/message.service';
+import { ResponseMessage } from '../../shared/http_entities/response_message.model';
 
 @Component({
     selector: 'app-update-profile',
@@ -21,7 +24,9 @@ export class UpdateProfileComponent implements OnInit {
 
     constructor(private route : ActivatedRoute,
                 private router : Router,
-                private userInfoService : UserInfoService) {}
+                private userInfoService : UserInfoService,
+                private userDetailService : UserDetailService,
+                private messageService : MessageService) {}
 
 
     ngOnInit(): void {
@@ -45,8 +50,37 @@ export class UpdateProfileComponent implements OnInit {
 
         this.route.params.subscribe(
             (params) => {
-                this.selectedPage = params['endpoint'];
-                console.log(params['endpoint']);
+                let selection: string = params['endpoint'];
+                
+                if (selection === "password") {
+                    // call backend api to send
+                    this.userDetailService.resetPassword()
+                    .subscribe(
+                        (response: ResponseMessage) => {
+                            console.log("Update Password")
+                            this.messageService.setMessage(response);
+                        },
+                        (error: any) => {
+                            console.log(error.error.message + " thrown");
+                            let respMsg = new ResponseMessage(false, error.error.message,
+                                                             error.error.message,error.status,
+                                                             AppConfig.message_type.message_error);
+                            this.messageService.setMessage(respMsg);
+                            this.router.navigate([AppConfig.navigation_endpoints.home]);
+                        },
+                        () => {
+                           // this.router.navigate([AppConfig.navigation_endpoints.home]);
+                        }
+                    )
+                } 
+                else if (selection == "profile") {
+                    this.selectedPage = params['endpoint'];
+                    console.log(params['endpoint']);
+                }
+                else {
+                    this.router.navigate([AppConfig.navigation_endpoints.home]);
+                }
+
             }
         )
         // this.selectedPage = this.profile_section;

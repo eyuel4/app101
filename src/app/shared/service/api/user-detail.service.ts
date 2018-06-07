@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import { AppConfig } from  '../../../config/app.config';
 import { ApiRequestService } from './api-request.service';
 import { UserInfoService } from '../../../auth/user_info.service';
+import { ResponseMessage } from "../../http_entities/response_message.model";
 /**
  * The following Service will send UserId to backend Server and get additional User Info
  * like FullName, Email, ProfilePic
@@ -54,6 +55,15 @@ export class UserDetailService {
                     });
            // }
         return userDetailSubject;
+    }
+
+    public resetPassword(): Observable<ResponseMessage> {
+        let userInfo : any = this.userInfoService.getUserInfo();
+        let userDetail : UserDetail = new UserDetail();
+        userDetail.username = userInfo.email;
+        console.log(userInfo.email);
+        return this.apiRequest.post(AppConfig.api_endpoints.reset_password, userDetail, AppConfig.server_type.resource_server)
+            
     }
 
 }

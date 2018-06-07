@@ -16,7 +16,8 @@ export const AppConfig: IAppConfig = {
     api_endpoints: {
         confirm_account: '/ibex/api/registeration/confirm',
         oauth_token: '/oauth/token',
-        get_user_detail : '/ibex/api/user'
+        get_user_detail : '/ibex/api/user',
+        reset_password: '/ibex/api/profile/edit/password/reset'
     },
     server_type: {
         resource_server: 'resource',
