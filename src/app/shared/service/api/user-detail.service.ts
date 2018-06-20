@@ -8,6 +8,7 @@ import { AppConfig } from  '../../../config/app.config';
 import { ApiRequestService } from './api-request.service';
 import { UserInfoService } from '../../../auth/user_info.service';
 import { ResponseMessage } from "../../http_entities/response_message.model";
+import { Password } from "../../model/common/Password.model";
 /**
  * The following Service will send UserId to backend Server and get additional User Info
  * like FullName, Email, ProfilePic
@@ -57,13 +58,24 @@ export class UserDetailService {
         return userDetailSubject;
     }
 
+    /**
+     * Send Reset Password link on Email or Text 
+     */
     public resetPassword(): Observable<ResponseMessage> {
         let userInfo : any = this.userInfoService.getUserInfo();
         let userDetail : UserDetail = new UserDetail();
         userDetail.username = userInfo.email;
         console.log(userInfo.email);
-        return this.apiRequest.post(AppConfig.api_endpoints.reset_password, userDetail, AppConfig.server_type.resource_server)
+        console.log(userInfo.userId);
+        return this.apiRequest.post(AppConfig.api_endpoints.reset_password, userDetail, AppConfig.server_type.resource_server);
             
+    }
+
+    /**
+     * Make Api call to backend update password
+     */
+    public updatePassword(password : Password, token: string): Observable<ResponseMessage> {
+        return this.apiRequest.post(AppConfig.api_endpoints.update_password+"/"+token, password, AppConfig.server_type.resource_server);
     }
 
 }

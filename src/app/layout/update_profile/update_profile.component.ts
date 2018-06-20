@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl} from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, UrlTree } from '@angular/router';
 
 import { UserInfoService } from '../../auth/user_info.service';
 import { AppConfig } from '../../config/app.config';
 import { UserDetailService } from '../../shared/service/api/user-detail.service';
 import { MessageService } from '../../shared/service/api/message.service';
 import { ResponseMessage } from '../../shared/http_entities/response_message.model';
+import { User } from '../../shared/model/common/User.model';
+import { Password } from "../../shared/model/common/Password.model";
 
 @Component({
     selector: 'app-update-profile',
@@ -19,6 +21,7 @@ export class UpdateProfileComponent implements OnInit {
     password_section : string = 'password';
 
     selectedPage : string = this.profile_section;
+    tokenParam : string;
     passwordForm : FormGroup;
     profileForm : FormGroup;
 
@@ -45,19 +48,20 @@ export class UpdateProfileComponent implements OnInit {
         if (!this.userInfoService.isLoggedIn()) {
             this.router.navigate([AppConfig.navigation_endpoints.home]);
         }
-        //this.userInfoService.isLoggedIn();
-
 
         this.route.params.subscribe(
             (params) => {
                 let selection: string = params['endpoint'];
-                
+                this.tokenParam = params['token']
+                console.log(selection);
                 if (selection === "password") {
-                    // call backend api to send
+                    //this.selectedPage = params['endpoint'];
+                    // call backend api to send reset email and show message email sent
                     this.userDetailService.resetPassword()
                     .subscribe(
                         (response: ResponseMessage) => {
-                            console.log("Update Password")
+                            console.log("Update Password Link Requested")
+                            console.log(response);
                             this.messageService.setMessage(response);
                         },
                         (error: any) => {
@@ -69,20 +73,23 @@ export class UpdateProfileComponent implements OnInit {
                             this.router.navigate([AppConfig.navigation_endpoints.home]);
                         },
                         () => {
-                           // this.router.navigate([AppConfig.navigation_endpoints.home]);
+                            this.router.navigate([AppConfig.navigation_endpoints.home]);
                         }
                     )
                 } 
-                else if (selection == "profile") {
+                else if (selection == "photo") {
                     this.selectedPage = params['endpoint'];
                     console.log(params['endpoint']);
+                }
+                else if (this.router.url.includes("/profile/edit/password/reset")) {
+                    this.selectedPage = this.password_section;
                 }
                 else {
                     this.router.navigate([AppConfig.navigation_endpoints.home]);
                 }
-
             }
         )
+
         // this.selectedPage = this.profile_section;
         this.passwordForm = new FormGroup({
             'oldPassword' : new FormControl(null),
@@ -92,5 +99,19 @@ export class UpdateProfileComponent implements OnInit {
         this.profileForm = new FormGroup({
             'photo' : new FormControl(null)
         })
+    }
+
+    /**
+     * Reset User Password
+     */
+    public onChangePassword() {
+        let password = new Password();
+        password = this.passwordForm.value;
+        console.log(password);
+        console.log(this.tokenParam);
+        this.userDetailService.updatePassword(password, this.tokenParam)
+        .subscribe(
+
+        );
     }
 }
