@@ -111,7 +111,16 @@ export class UpdateProfileComponent implements OnInit {
         console.log(this.tokenParam);
         this.userDetailService.updatePassword(password, this.tokenParam)
         .subscribe(
+            (response: ResponseMessage) => {
+                console.log(response.message);
+                console.log(response.message_type);
+            },
+            (error : any) => {
 
+            },
+            () => {
+                this.router.navigate([AppConfig.navigation_endpoints.home]);
+            }
         );
     }
 }

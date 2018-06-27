@@ -9,6 +9,7 @@ import { ApiRequestService } from './api-request.service';
 import { UserInfoService } from '../../../auth/user_info.service';
 import { ResponseMessage } from "../../http_entities/response_message.model";
 import { Password } from "../../model/common/Password.model";
+import { User } from "../../model/common/User.model";
 /**
  * The following Service will send UserId to backend Server and get additional User Info
  * like FullName, Email, ProfilePic
@@ -75,6 +76,10 @@ export class UserDetailService {
      * Make Api call to backend update password
      */
     public updatePassword(password : Password, token: string): Observable<ResponseMessage> {
+        console.log(password);
+        console.log(token);
+        //let user : User = new User();
+        //user.password = password;
         return this.apiRequest.post(AppConfig.api_endpoints.update_password+"/"+token, password, AppConfig.server_type.resource_server);
     }
 
