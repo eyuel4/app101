@@ -12,7 +12,7 @@ export class MessageService {
 
     public setMessage(respMessage : ResponseMessage) {
         this.message = respMessage;
-        console.log(this.message);
+        console.log(this.message + ' message notification');
         this.currentMessage.next(respMessage);
     }
 

@@ -1,11 +1,31 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-    <a class="navbar-brand" href="#">Sample APP</a>
+    <a class="navbar-brand" [routerLink]="['/home']">Sample APP</a>
     <button class="navbar-toggler" type="button" data-toggler="collapse" data-target="navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
+            <li class="navbar-nav mr-auto">
+                <a class="nav-link" routerLink="/movies">MOVIES</a>
+            </li>
+            <li class="navbar-nav mr-auto">
+                <a class="nav-link" routerLink="/music">MUSICS</a>
+            </li>
+            <li class="navbar-nav mr-auto">
+                <a class="nav-link" routerLink="/series">TV SERIES</a>
+            </li>
+            <li>
+                <a class="nav-link" routerLink="/comedy">COMEDY</a>
+            </li>
+            <li>
+                <a class="nav-link" routerLink="/news">NEWS</a>
+            </li>
+            <li>
+                <a class="nav-link" routerLink="/celebrities">CELEBRITIES</a>
+            </li>
+
+<!--
             <li class="navbar-nav mr-auto">
                 <a class="nav-link" [routerLink]="['/home']">HOME</a>
             </li>
@@ -21,15 +41,17 @@
             <li>
                 <a class="nav-link" routerLink="/login">MUSIC</a>
             </li>
+
+        -->
             <!-- <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/courses']">Comment</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" [routerLink]="['/not-found']">PageNotFound</a>
             </li> -->
-            <li>
+            <!-- <li>
                 <a class="nav-link" (click)="onLogout()">Logout</a>
-            </li>
+            </li> -->
         </ul>
         <ul class="nav navbar-nav navbar-right" *ngIf='isLoggedIn'>
             <li class="nav-item dropdown">
@@ -48,8 +70,11 @@
             </li>
           </ul>
           <ul class="nav navbar-nav navbar-right" *ngIf='!isLoggedIn'>
+              <li>
+                  <a class="nav-link" routerLink="/signup">SignUp</a>
+              </li>
               <li> 
-                  <a class="nav-link" routerLink="/login">SignIn</a>
+                    <a class="nav-link" routerLink="/login">Login</a>
               </li>
           </ul>
     </div>

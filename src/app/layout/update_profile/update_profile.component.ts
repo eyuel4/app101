@@ -35,7 +35,7 @@ export class UpdateProfileComponent implements OnInit {
     ngOnInit(): void {
         console.log("Wasup")
         
-
+/** 
         this.userInfoService.isLoggedInSubject.subscribe(
             (result: boolean) => {
                 console.log(result);
@@ -48,6 +48,8 @@ export class UpdateProfileComponent implements OnInit {
         if (!this.userInfoService.isLoggedIn()) {
             this.router.navigate([AppConfig.navigation_endpoints.home]);
         }
+*/
+        
 
         this.route.params.subscribe(
             (params) => {
@@ -62,14 +64,14 @@ export class UpdateProfileComponent implements OnInit {
                         (response: ResponseMessage) => {
                             console.log("Update Password Link Requested")
                             console.log(response);
-                            this.messageService.setMessage(response);
+                           // this.messageService.setMessage(response);
                         },
                         (error: any) => {
                             console.log(error.error.message + " thrown");
                             let respMsg = new ResponseMessage(false, error.error.message,
                                                              error.error.message,error.status,
                                                              AppConfig.message_type.message_error);
-                            this.messageService.setMessage(respMsg);
+                         //   this.messageService.setMessage(respMsg);
                             this.router.navigate([AppConfig.navigation_endpoints.home]);
                         },
                         () => {
@@ -114,9 +116,11 @@ export class UpdateProfileComponent implements OnInit {
             (response: ResponseMessage) => {
                 console.log(response.message);
                 console.log(response.message_type);
+                this.messageService.setMessage(response);
             },
             (error : any) => {
-
+                let response : ResponseMessage = new ResponseMessage(false, null, error.message, error.statusCode, error.type);
+                console.log(error);
             },
             () => {
                 this.router.navigate([AppConfig.navigation_endpoints.home]);

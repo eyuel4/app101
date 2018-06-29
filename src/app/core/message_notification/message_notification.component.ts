@@ -16,6 +16,9 @@ export class MessageNotificationComponent implements OnInit {
     constructor(private messageNotifService : MessageService) {}
 
     ngOnInit() {
+      this.message = "Hello World";
+      this.type = "success";
+      this.respMessage = new ResponseMessage(true, "Hello World", null, null, "success");
       console.log("Am hreee");
           this.messageNotifService.currentMessage.subscribe(
             (resp : ResponseMessage) => {

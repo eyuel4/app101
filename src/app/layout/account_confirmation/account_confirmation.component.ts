@@ -39,6 +39,7 @@ export class AccountConfirmationComponent implements OnInit {
             .subscribe(
                 (jsonResp : ResponseMessage) => {
                     console.log(jsonResp + " hello");
+                    console.log(jsonResp.message);
                     this.messageService.setMessage(jsonResp);
                     // If the user account is confirmed 
                     // show thank you message
