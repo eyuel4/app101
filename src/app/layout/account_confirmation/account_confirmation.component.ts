@@ -11,7 +11,7 @@ import { MessageService } from '../../shared/service/api/message.service';
 @Component({
     selector: 'app-account-confirmation',
     templateUrl:'./account_confirmation.component.html',
-    styleUrls: ['./account_confirmation.component.html']
+    styleUrls: ['./account_confirmation.component.scss']
 })
 export class AccountConfirmationComponent implements OnInit {
     private confirmationToken : string;
