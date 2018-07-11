@@ -81,4 +81,42 @@
                 </div>
 
     </div>
+
+    <!-- Recover Password -->
+    <div class="row recover-page" *ngIf="selectedPage === 'recover' ">
+        <div class="col-sm-6 col-md-4 col-lg-6">
+            <div class="card rounded-0">
+                <div class="card-header">
+                    <h3 class="mb-0">Recover Forgotten Password</h3>
+                </div>
+                <div class="card-body">
+                    <form class="form" role="form" autocomplete="off" [formGroup]="recoverForm" (ngSubmit)="onRecoverPassword()">
+                        <div class="form-group">
+                            <label for ="oldPassword">New Password</label>
+                            <div class="col-lg-9">
+                                <input
+                                    type="password" class="form-control"
+                                    id="newPassword" placeholder="New Password"
+                                    name="newPassword" formControlName="newPassword">
+                            </div>
+                        </div>
+    
+                        <div class="form-group">
+                            <label for ="confirmPassword">Confirm Password</label>
+                            <div class="col-lg-9">
+                                <input
+                                    type="password" class="form-control"
+                                    id="confirmPassword" placeholder="Confirm Password"
+                                    name="confirmPassword" formControlName="confirmPassword">
+                            </div>
+                        </div>
+                        <div>
+                            <span class="custom-control-indicator"><a class="kinda-link" (click)="onLoginNavigate()">Login</a></span>
+                            <button type="submit" class="btn btn-primary bt-lg">Reset Password</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

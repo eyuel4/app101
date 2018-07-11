@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { LoginService } from "../../shared/service/api/login.service";
 import { UserDetailService } from "../../shared/service/api/user-detail.service";
+import { UserDetailResponse } from '../../shared/model/common/UserDetailResponse.model';
 
 @Component({
     selector:'app-header',
@@ -20,7 +21,9 @@ export class HeaderComponent implements OnInit, OnDestroy{
     userNameDisplay : string;
     userPic : string;
     userId : string;
-    currentUserDetail : UserDetail;
+    currentUserDetail : UserDetailResponse;
+    isActivatedStyle : string;
+    isAcctActivated : boolean;
 
     constructor(private userInfoService : UserInfoService,
                 private loginService : LoginService,
@@ -45,10 +48,12 @@ export class HeaderComponent implements OnInit, OnDestroy{
         );
 
         this.userDetailService.currentUserDetail.subscribe(
-            (jsonResp : UserDetail) => {
+            (jsonResp : UserDetailResponse) => {
                 this.currentUserDetail = jsonResp;
                 this.userNameDisplay = this.currentUserDetail.firstName + ' ' + this.currentUserDetail.lastName;
-                this.userPic = this.currentUserDetail.profilePic;
+                this.userPic = this.currentUserDetail.photoUrl;
+                this.isAcctActivated = this.currentUserDetail.acctActivated;
+                console.log(this.currentUserDetail.acctActivated +" Activated");
             },
             (error: Error) => {
                 console.log(error);
@@ -57,6 +62,12 @@ export class HeaderComponent implements OnInit, OnDestroy{
                 console.log("finished current user detail subscription");
             }
         )
+
+        if (this.isAcctActivated) {
+            this.isActivatedStyle = 'disabled';
+        } else {
+            this.isActivatedStyle = 'enabled';
+        }
 
        this.userIdSubscription = this.userInfoService.userIdSubject.subscribe(
             (userId : string) => {

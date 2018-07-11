@@ -1,0 +1,27 @@
+body {
+    height: 100%;
+    background-size: cover;
+    background-position: 50% 50%;
+    background-image: url('http://31.media.tumblr.com/ad65726441493f47e0c8f0473206f4e5/tumblr_mvwl4fCEb21rdpk23o1_1280.jpg');
+}
+
+.fullscreen_bg {
+    position: fixed;
+    // top: 0;
+    // right: 0;
+    // bottom: 0;
+    // left: 0;
+     background-size: cover;
+    // background-position: 100%;
+    background-repeat: false;
+    background-image: url('https://www.brownandhudson.com/assets/uploads/where/ethiopia-aerial-10-810.jpg');
+  }
+
+  a.kinda-link:hover {
+      cursor: pointer;
+      color: lightblue;
+
+  }
+  a.kinda-link {
+      color: blue;
+  }

@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-md-12">
             <h2 class="text-center text-white mb-4">Bootstrap 4 Login Form</h2>
-            <div class="row">
+            <div class="row login-view" *ngIf="selectedView === 'login'">
                 <div class="col-md-6">
                     <span class="anchor" id="formLogin"></span>
 
@@ -31,16 +31,44 @@
                                         placeholder="password">
                                 </div>
                                 <div>
-                                        <label class="custom-control custom-checkbox">
-                                          <input type="checkbox" class="custom-control-input" formControlName="rememberMe" id="rememberMe">
-                                          <span class="custom-control-indicator"></span>
-                                          <span class="custom-control-description small">Remember me on this computer</span>
-                                        </label>
+                                    <label class="custom-control custom-checkbox">
+                                        <span class="custom-control-indicator"><a class="kinda-link" (click)="onForgotPassword()">Forgot Password</a></span>
+                                        <!-- <a class="dropdown-item" [routerLink]="['/profile/edit','recover']">Forgot Pass</a> -->
+                                    </label>
                                 </div>
                                 <!-- disabled="!loginForm.valid" -->
                                 <button type="button" class="btn btn-success float-right" type="submit">Login</button>
                             </form>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row recover-view" *ngIf="selectedView === 'recover'">
+                <div class="col-md-6">
+                    <!-- Form Card Login -->
+                    <div class="card rounded-0">
+                        <div class="card-header">
+                            <h3 class="mb-0">Recover Password</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <form class="form" role="form" autocomplete="off" id="recoverEmail" [formGroup]="recoverForm" (ngSubmit)="onRecoverPassword()">
+                            <div class="form-group">
+                                <label for="username">Email or Mobile Number</label>
+                                <input 
+                                    type="text" id="username" 
+                                    formControlName="username" 
+                                    class="form-control" placeholder="Email or Mobile Number">
+                                <span 
+                                    *ngIf=" !loginForm.get('username').valid && loginForm.get('username').touched "
+                                    clas="help-block">Please enter a valid username!</span>
+                            </div>
+                            <div>
+                                <span class="custom-control-indicator"><a class="kinda-link" (click)="onLoginNavigate()">Login</a></span>
+                                <button type="button" class="btn btn-success float-right" type="submit">Submit</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>

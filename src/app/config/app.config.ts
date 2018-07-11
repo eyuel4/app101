@@ -7,18 +7,21 @@ export const AppConfig: IAppConfig = {
         login: 'login',
         movies: 'movies',
         confirm: 'confirm',
-        update_profile: 'profile'
+        update_profile: 'profile',
+        wildCard: '**'
     },
     navigation_endpoints: {
         home : '/home',
-        logout : '/logout'
+        logout : '/logout',
+        login : '/login'
     },
     api_endpoints: {
         confirm_account: '/ibex/api/registeration/confirm',
         oauth_token: '/oauth/token',
         get_user_detail : '/ibex/api/user',
         reset_password: '/ibex/api/profile/edit/password/reset',
-        update_password: '/ibex/api/profile/edit/password'
+        update_password: '/ibex/api/profile/edit/password',
+        recover_password: '/ibex/api/profile/edit/password/recover'
     },
     server_type: {
         resource_server: 'resource',

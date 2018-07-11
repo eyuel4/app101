@@ -23,12 +23,15 @@ import { MessageService } from './shared/service/api/message.service';
 import { MessageNotificationComponent } from './core/message_notification/message_notification.component';
 import { AutoCloseAlertDirective } from './directive/auto-close-alert.directive'; 
 import { UpdateProfileModule } from './layout/update_profile/update_profile.module';
+import { PageNotFoundComponent } from './layout/404/not_found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MessageNotificationComponent,
-    AutoCloseAlertDirective
+    AutoCloseAlertDirective,
+    PageNotFoundComponent
+    
   ],
   imports: [
     BrowserModule,

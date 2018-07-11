@@ -1,7 +1,20 @@
 .dashboard {
-    margin-top: 4%
+    margin-top: 1%
 }
 
 .header {
 
 }
+
+.fullscreen_bg {
+    position: fixed;
+    height: 100%;
+    // top: 0;
+    // right: 0;
+    // bottom: 0;
+    // left: 0;
+     background-size: cover;
+    // background-position: 100%;
+   // background-repeat: false;
+   // background-image: url('https://www.brownandhudson.com/assets/uploads/where/ethiopia-aerial-10-810.jpg');
+  }

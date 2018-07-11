@@ -7,4 +7,5 @@ export class UserDetail {
     public insDate : Date;
     public lastUpdate : Date;
     public profilePic : string;
+    public isAcctActivated : boolean;
 }

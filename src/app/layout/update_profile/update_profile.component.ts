@@ -19,11 +19,13 @@ export class UpdateProfileComponent implements OnInit {
 
     profile_section : string = 'profile';
     password_section : string = 'password';
+    recover_section : string = 'recover';
 
     selectedPage : string = this.profile_section;
     tokenParam : string;
     passwordForm : FormGroup;
     profileForm : FormGroup;
+    recoverForm : FormGroup;
 
     constructor(private route : ActivatedRoute,
                 private router : Router,
@@ -49,12 +51,11 @@ export class UpdateProfileComponent implements OnInit {
             this.router.navigate([AppConfig.navigation_endpoints.home]);
         }
 */
-        
-
         this.route.params.subscribe(
             (params) => {
                 let selection: string = params['endpoint'];
-                this.tokenParam = params['token']
+                this.tokenParam = params['token'];
+
                 console.log(selection);
                 if (selection === "password") {
                     //this.selectedPage = params['endpoint'];
@@ -77,14 +78,20 @@ export class UpdateProfileComponent implements OnInit {
                         () => {
                             this.router.navigate([AppConfig.navigation_endpoints.home]);
                         }
-                    )
+                    );
                 } 
+                else if (selection == "recover") {
+                   this.selectedPage = this.recover_section;
+                }
                 else if (selection == "photo") {
                     this.selectedPage = params['endpoint'];
                     console.log(params['endpoint']);
                 }
                 else if (this.router.url.includes("/profile/edit/password/reset")) {
                     this.selectedPage = this.password_section;
+                }
+                else if (this.router.url.includes("/profile/edit/password/recover")) {
+                    this.selectedPage = this.recover_section;
                 }
                 else {
                     this.router.navigate([AppConfig.navigation_endpoints.home]);
@@ -100,6 +107,10 @@ export class UpdateProfileComponent implements OnInit {
         });
         this.profileForm = new FormGroup({
             'photo' : new FormControl(null)
+        });
+        this.recoverForm = new FormGroup({
+           'newPassword' : new FormControl(null),
+           'confirmPassword' : new FormControl(null)
         })
     }
 
@@ -126,5 +137,32 @@ export class UpdateProfileComponent implements OnInit {
                 this.router.navigate([AppConfig.navigation_endpoints.home]);
             }
         );
+    }
+
+    onLoginNavigate() {
+        this.router.navigate([AppConfig.navigation_endpoints.login]);
+    }
+
+    onRecoverPassword() {
+        console.log(this.recoverForm.value);
+        console.log(this.tokenParam);
+        let password = new Password();
+         password = this.recoverForm.value;
+        //password.newPassword = this.recoverForm.value.newPassword;
+        console.log(password);
+        this.userDetailService.changeForgotPassword(password, this.tokenParam)
+            .subscribe(
+                (response: ResponseMessage) => {
+                    console.log(response);
+                    this.messageService.setMessage(response);
+                },
+                (error : any) => {
+                    let response : ResponseMessage = new ResponseMessage(false, null, error.message, error.statusCode, error.type);
+                    console.log(error);
+                },
+                () => {
+                    this.router.navigate([AppConfig.navigation_endpoints.home]);
+                }
+            );
     }
 }

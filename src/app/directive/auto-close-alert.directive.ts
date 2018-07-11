@@ -13,5 +13,6 @@ export class AutoCloseAlertDirective {
   }, 6000);
     //el.nativeElement.delay(3000).fadeOut("slow",() => {});
    }
+   
 
 }

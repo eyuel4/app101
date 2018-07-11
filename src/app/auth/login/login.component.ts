@@ -1,3 +1,4 @@
+import {ResponseMessage} from '../../shared/http_entities/response_message.model';
 import {UserDetail} from '../../shared/model/common/UserDetail.model';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -11,6 +12,7 @@ import { LoginService } from "../../shared/service/api/login.service";
 import { UserInfoService } from "../user_info.service";
 import { UserDetailService } from "../../shared/service/api/user-detail.service";
 import { AppConfig } from '../../config/app.config';
+import { UserDetailResponse } from '../../shared/model/common/UserDetailResponse.model';
 
 @Component({
     selector: 'app-login',
@@ -19,10 +21,12 @@ import { AppConfig } from '../../config/app.config';
 })
 export class LoginComponent implements OnInit {
     loginForm: FormGroup;
+    recoverForm : FormGroup;
     model: User;
     loading = false;
     error = '';
     errMsg : string = '';
+    selectedView : string;
 
     constructor(private authenticationService : AuthenticationService,
                 private loginService : LoginService,
@@ -42,6 +46,10 @@ export class LoginComponent implements OnInit {
             'password': new FormControl(null),
             'rememberMe': new FormControl(null)
         });
+        this.recoverForm = new FormGroup({
+            'username': new FormControl(null,[Validators.required])
+        });
+        this.selectedView = 'login';
         
         // // reset login status
         // this.authenticationService.logout();
@@ -86,7 +94,7 @@ export class LoginComponent implements OnInit {
                    // this.userInfoService.getUserName();
                     this.userDetailService.getUserDetail(resp.user.userId)
                         .subscribe(
-                            (resp: UserDetail) => {
+                            (resp: UserDetailResponse) => {
                                 this.userDetailService.currentUserDetail.next(resp);
                             }
                         );
@@ -109,6 +117,36 @@ export class LoginComponent implements OnInit {
                 }
             );
         }
+    }
 
+    onForgotPassword() {
+        this.selectedView = "recover";
+    }
+
+    onRecoverPassword() {
+        let u = this.recoverForm.value;
+        console.log(u);
+        this.userDetailService.recoverPassword(u)
+            .subscribe(
+                (response: ResponseMessage) => {
+                    console.log(response);
+                    console.log("Recover on response");
+                },
+                (error: any) => {
+                    console.log(error.error.message + " thrown");
+                    let respMsg = new ResponseMessage(false, error.error.message,
+                        error.error.message,error.status,
+                        AppConfig.message_type.message_error);
+
+                    this.router.navigate([AppConfig.navigation_endpoints.home]);
+                },
+                () => {
+                    this.router.navigate([AppConfig.navigation_endpoints.home])
+                }
+            );
+    }
+
+    onLoginNavigate() {
+        this.selectedView = 'login'
     }
 }
