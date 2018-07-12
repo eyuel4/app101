@@ -47,7 +47,7 @@ export class TokenInterceptor implements HttpInterceptor {
     private whiteList = [
         'http://localhost:8081/ibextubeapp/oauth-server/oauth/token',
         'http://localhost:8082/ibexapp/oauth-resource/ibex/api/signup',
-        'http://localhost:8082/ibexapp/oauth-resource/ibex/api/registeration/confirm/21eab496-bb07-4ed5-ac90-3a69aeb02d0b',
+        'http://localhost:8082/ibexapp/oauth-resource/ibex/api/registeration/confirm/1271a5a6-d921-42f8-8e9f-312852371156',
         'http://localhost:8082/ibexapp/oauth-resource/ibex/api/user/profile/upload',
         'http://localhost:8082/ibexapp/oauth-resource/ibex/api/profile/edit/password/21eab496-bb07-4ed5-ac90-3a69aeb02d0b',
         'http://localhost:8082/ibexapp/oauth-resource/ibex/api/profile/edit/password/recover',

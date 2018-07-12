@@ -44,6 +44,14 @@ export class HeaderComponent implements OnInit, OnDestroy{
                 //         }   
                 //     );
                 // }
+                if (this.isLoggedIn) {
+                    this.userDetailService.getUserDetail(this.userId)
+                    .subscribe(
+                        (resp: UserDetailResponse) => {
+                            this.userDetailService.currentUserDetail.next(resp);
+                        }
+                    );
+                }
             }
         );
 
@@ -54,6 +62,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
                 this.userPic = this.currentUserDetail.photoUrl;
                 this.isAcctActivated = this.currentUserDetail.acctActivated;
                 console.log(this.currentUserDetail.acctActivated +" Activated");
+                console.log(this.userNameDisplay + " UserName");
             },
             (error: Error) => {
                 console.log(error);
@@ -72,9 +81,21 @@ export class HeaderComponent implements OnInit, OnDestroy{
        this.userIdSubscription = this.userInfoService.userIdSubject.subscribe(
             (userId : string) => {
                 this.userId = userId;
-                console.log(this.userId +"userId");
+                console.log(this.userId +"userId11");
+                console.log(this.isLoggedIn);
             }
         );
+        
+
+        
+            // console.log("I Am loggeedIn");
+             if(this.isLoggedIn) {
+                //if (this.userId !== null || this.userId !== undefined) {
+                    this.userDetailService.getUserDetail(this.userId);
+              //  }
+            }
+
+        
 
     }
 

@@ -27,6 +27,8 @@ export class LoginComponent implements OnInit {
     error = '';
     errMsg : string = '';
     selectedView : string;
+    userIdSubscription : Subscription;
+    userId : string;
 
     constructor(private authenticationService : AuthenticationService,
                 private loginService : LoginService,
@@ -37,7 +39,18 @@ export class LoginComponent implements OnInit {
     }
     ngOnInit() {
         if (this.userInfoService.isLoggedIn()) {
+            console.log("HOLO");
             //this.userInfoService.getUserName();
+            this.userIdSubscription = this.userInfoService.userIdSubject.subscribe(
+                (userId : string) => {
+                    this.userId = userId;
+                    console.log(this.userId +"userId");
+                    // if (this.userId !== null || this.userId !== undefined ) {
+                    //     this.userDetailService.getUserDetail(this.userId);
+                    // }
+                }
+            );
+            this.userDetailService.getUserDetail(this.userId);
             console.log("Login Login");
             this.router.navigate([AppConfig.navigation_endpoints.home]);
         }

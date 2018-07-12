@@ -2,12 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { UpdateProfileComponent } from './update_profile.component';
+import { SubscribedChannelsComponent } from "../subscribed_channels/subscribed_channels.component";
+
 
 const profileRoutes : Routes = [
     { path: '', redirectTo: 'edit', pathMatch: 'full' },
     { path: 'edit/:endpoint', component: UpdateProfileComponent },
     { path: 'edit/password/reset/:token', component: UpdateProfileComponent},
-    { path: 'edit/password/recover/:token', component: UpdateProfileComponent}
+    { path: 'edit/password/recover/:token', component: UpdateProfileComponent},
+    { path: 'channels/subscribed', component: SubscribedChannelsComponent}
 ]
 
 @NgModule({
