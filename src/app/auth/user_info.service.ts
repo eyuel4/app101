@@ -57,7 +57,8 @@ export class UserInfoService {
         let result = this.storage.getItem(this.currentUserKey)?true : false;
         this.isLoggedInSubject.next(result);
         this.userIdSubject.next(this.getUserId());
-        return result;
+        return this.getStoredToken() !== null;
+       // return result;
     }
     
     // Get Token from LocalStorage

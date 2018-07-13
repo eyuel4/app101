@@ -24,6 +24,7 @@ import { MessageNotificationComponent } from './core/message_notification/messag
 import { AutoCloseAlertDirective } from './directive/auto-close-alert.directive'; 
 import { UpdateProfileModule } from './layout/update_profile/update_profile.module';
 import { PageNotFoundComponent } from './layout/404/not_found.component';
+import { AuthGuard } from "./auth-guard.service";
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { PageNotFoundComponent } from './layout/404/not_found.component';
   ],
   providers: [ AuthenticationService, MoviesService, UserInfoService, 
                ApiRequestService, LoginService, AppConfig, UploadService,
-               UserDetailService, MessageService,
+               UserDetailService, MessageService, AuthGuard,
                 {
                  provide: HTTP_INTERCEPTORS,
                  useClass: TokenInterceptor,

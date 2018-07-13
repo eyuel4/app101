@@ -6,12 +6,12 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './subscribed_channels.component.html',
     styleUrls: ['./subscribed_channels.component.scss']
 })
-export class SubscribedChannelsComponent implements OnInit{
+export class SubscribedChannelsComponent implements OnInit {
     constructor() {
 
     }
 
     ngOnInit() {
-        
+
     }
 }

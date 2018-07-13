@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
                     // }
                 }
             );
-            this.userDetailService.getUserDetail(this.userId);
+           // this.userDetailService.getUserDetail(this.userId);
             console.log("Login Login");
             this.router.navigate([AppConfig.navigation_endpoints.home]);
         }
@@ -105,12 +105,12 @@ export class LoginComponent implements OnInit {
                     console.log(resp.user.userId);
                     //this.userInfoService.isLoggedIn();
                    // this.userInfoService.getUserName();
-                    this.userDetailService.getUserDetail(resp.user.userId)
-                        .subscribe(
-                            (resp: UserDetailResponse) => {
-                                this.userDetailService.currentUserDetail.next(resp);
-                            }
-                        );
+                    // this.userDetailService.getUserDetail(resp.user.userId)
+                    //     .subscribe(
+                    //         (resp: UserDetailResponse) => {
+                    //             this.userDetailService.currentUserDetail.next(resp);
+                    //         }
+                    //     );
                     this.router.navigate([resp.landingPage]);
                 },
                 errResponse => {

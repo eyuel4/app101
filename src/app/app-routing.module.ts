@@ -7,7 +7,7 @@ import { PageNotFoundComponent } from './layout/404/not_found.component';
 
 const appRoutes : Routes = [
     { path: '', redirectTo: '/home', pathMatch: 'full'},
-    { path: AppConfig.routes.home , component: HomeComponent },
+    { path: AppConfig.routes.home , component: HomeComponent},
     { path: AppConfig.routes.login , loadChildren: './auth/login/login.module#LoginModule'},
     { path: 'signup' , loadChildren: './auth/signup/signup.module#SignupModule'},
     { path: AppConfig.routes.movies, loadChildren: './movies/movie.module#MovieModule'},
