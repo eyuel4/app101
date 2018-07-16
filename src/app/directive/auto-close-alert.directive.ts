@@ -9,7 +9,7 @@ export class AutoCloseAlertDirective {
     console.log(el);
   
     setTimeout(()=>{
-      el.nativeElement.remove();
+    //  el.nativeElement.remove();
   }, 6000);
     //el.nativeElement.delay(3000).fadeOut("slow",() => {});
    }

@@ -24,3 +24,40 @@
     /* And disable the pointer events */
     pointer-events: none;
   }
+
+  a {
+    color: #fed136;
+  }
+  
+  a:hover {
+    color: #fec503;
+  }
+
+.nav-link {
+  text-transform:uppercase;
+  font-weight:bold;
+}
+
+.nav-item {
+  padding: 0 1rem;
+
+  @media(max-width: 34em) {
+      padding: 0;
+  }
+
+  .nav-link {
+      @media(max-width: 34em) {
+          font-weight:normal;
+          color:#fff !important;
+      }
+  }
+
+  .nav-link:hover {
+    color:  #fec503;
+  }
+}
+
+.navbar-brand {
+  color :  #fec503;
+  font-weight : normal;
+}
