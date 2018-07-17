@@ -45,6 +45,42 @@ export class MoviesService {
             'Harry Potter',
             'Good movie',
             new Photo(12, 'HarryPotter', 'https://static.boredpanda.com/blog/wp-content/uploads/2016/01/16-year-old-artist-dimitra-milan-1.jpg')
+        ),
+        new Movies(
+            100,
+            'Harry Potter',
+            'Good movie',
+            new Photo(12, 'HarryPotter', 'https://static.boredpanda.com/blog/wp-content/uploads/2016/01/16-year-old-artist-dimitra-milan-1.jpg')
+        ),
+        new Movies(
+            100,
+            'Harry Potter',
+            'Good movie',
+            new Photo(12, 'HarryPotter', 'https://static.boredpanda.com/blog/wp-content/uploads/2016/01/16-year-old-artist-dimitra-milan-1.jpg')
+        ),
+        new Movies(
+            100,
+            'Harry Potter',
+            'Good movie',
+            new Photo(12, 'HarryPotter', 'https://static.boredpanda.com/blog/wp-content/uploads/2016/01/16-year-old-artist-dimitra-milan-1.jpg')
+        ),
+        new Movies(
+            100,
+            'Harry Potter',
+            'Good movie',
+            new Photo(12, 'HarryPotter', 'https://static.boredpanda.com/blog/wp-content/uploads/2016/01/16-year-old-artist-dimitra-milan-1.jpg')
+        ),
+        new Movies(
+            100,
+            'Harry Potter',
+            'Good movie',
+            new Photo(12, 'HarryPotter', 'https://static.boredpanda.com/blog/wp-content/uploads/2016/01/16-year-old-artist-dimitra-milan-1.jpg')
+        ),
+        new Movies(
+            100,
+            'Harry Potter',
+            'Good movie',
+            new Photo(12, 'HarryPotter', 'https://static.boredpanda.com/blog/wp-content/uploads/2016/01/16-year-old-artist-dimitra-milan-1.jpg')
         )
     ]
 
