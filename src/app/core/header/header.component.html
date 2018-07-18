@@ -64,7 +64,7 @@
                     <!-- <img src="http://rs775.pbsrc.com/albums/yy35/PhoenyxStar/link-1.jpg~c200"> -->
                     <img [src]="userPic">
                 </div>
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{ userNameDisplay }}<span class="caret"></span></a>    
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> {{ userNameDisplay }}<span class="caret"></span></a>    
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" [routerLink]="['/profile/channels/subscribed']">My Channels</a>
                     <a class="dropdown-item" [routerLink]="['/profile/edit','password']">Update Password</a>

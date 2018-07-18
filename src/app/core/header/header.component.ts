@@ -32,6 +32,7 @@ export class HeaderComponent implements OnInit, OnDestroy{
     }
 
     ngOnInit() {
+        console.log("Header Initialized");
         this.isLoggedInSubscription = this.userInfoService.isLoggedInSubject.subscribe(
             (result : boolean) => {
                 this.isLoggedIn = result;
