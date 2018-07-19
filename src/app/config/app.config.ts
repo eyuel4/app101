@@ -21,7 +21,8 @@ export const AppConfig: IAppConfig = {
         get_user_detail : '/ibex/api/user',
         reset_password: '/ibex/api/profile/edit/password/reset',
         update_password: '/ibex/api/profile/edit/password',
-        recover_password: '/ibex/api/profile/edit/password/recover'
+        recover_password: '/ibex/api/profile/edit/password/recover',
+        activate_account: '/ibex/api/profile/activate'
     },
     server_type: {
         resource_server: 'resource',

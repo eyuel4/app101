@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { LoginService } from "../../shared/service/api/login.service";
 import { UserDetailService } from "../../shared/service/api/user-detail.service";
 import { UserDetailResponse } from '../../shared/model/common/UserDetailResponse.model';
+import { ResponseMessage } from "../../shared/http_entities/response_message.model";
 
 @Component({
     selector:'app-header',
@@ -115,5 +116,21 @@ export class HeaderComponent implements OnInit, OnDestroy{
     // Logout User
     onLogout() {
         this.loginService.logout();
+    }
+
+    onActivateAccount() {
+        this.userDetailService.requestActivateAccount(this.userId)
+            .subscribe(
+                (response : ResponseMessage) => {
+                    console.log(response);
+                    //this.messageService
+                },
+                (error :Error) => {
+                    console.log(error);
+                },
+                () => {
+                    console.log("Finished acctivate account email sent");
+                }
+            );
     }
 }

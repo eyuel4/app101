@@ -106,4 +106,17 @@ export class UserDetailService {
     public changeForgotPassword(password : Password, token: string): Observable<ResponseMessage> {
         return this.apiRequest.post(AppConfig.api_endpoints.recover_password+"/"+token, password, AppConfig.server_type.resource_server);
     }
+
+    /**
+     * The following method request activation link to be sent on Email/ Phone
+     * @param userDetail 
+     */
+    public requestActivateAccount(userId : string): Observable<ResponseMessage> {
+        let userInfo : any = this.userInfoService.getUserInfo();
+        let userDetail : UserDetail = new UserDetail();
+        userDetail.username = userInfo.email;
+        userDetail.idUser = +userId;
+
+        return this.apiRequest.post(AppConfig.api_endpoints.activate_account, userDetail, AppConfig.server_type.resource_server);
+    }
 }
