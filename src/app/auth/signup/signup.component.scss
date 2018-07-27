@@ -16,8 +16,9 @@
 }
 
 .card-header {
-    background-color: #17a2b8;
-	height:110px;
+    //background-color: #17a2b8;
+    background-color: rgb(108, 159, 209);
+	height:70px;
 }
 
 .card-header {
@@ -25,17 +26,19 @@
 }
 
 .signup-form {
-    margin:25px 0px 30px 50px;
+    margin:45px 0px 30px 20px;
 }
 
 .card-header img {
-	height:150px;
-    width:150px;
+	height : 120px;
+    width : 120px;
     margin-top: 2%;
-    margin-left: 35%;
+    margin-left: 40%;
 }
 
 .card-footer {
 	padding:15px 0px;
-	background-color: #17a2b8;
+    //background-color: #17a2b8;
+    background-color: rgb(108, 159, 209);
 }
+

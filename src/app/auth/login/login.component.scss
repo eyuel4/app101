@@ -25,3 +25,31 @@ body {
   a.kinda-link {
       color: blue;
   }
+
+  .login-view {
+      padding: 4% 0% 0% 30%;
+  }
+
+  .card-signin {
+  border: 0;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1);
+}
+
+.card-signin .card-title {
+  margin-bottom: 2rem;
+  font-weight: 300;
+  font-size: 1.5rem;
+}
+
+.card-signin .card-body {
+  padding: 2rem;
+}
+
+.form-signin {
+  width: 100%;
+}
+
+.card-header {
+    background-color: rgb(108, 159, 209);
+}

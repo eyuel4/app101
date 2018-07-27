@@ -5,11 +5,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { UpdateProfileComponent } from './update_profile.component';
 import { ProfileRoutingModule } from './profile.routing.module';
 import { SubscribedChannelsComponent } from '../subscribed_channels/subscribed_channels.component';
+import { PlayListComponent } from '../playlist/playlist.component';
 
 @NgModule({
     declarations: [
         UpdateProfileComponent,
-        SubscribedChannelsComponent
+        SubscribedChannelsComponent,
+        PlayListComponent
     ],
     imports: [
         ProfileRoutingModule,
